@@ -7,6 +7,7 @@ Miranda Leslie Anya
 ##Timeline
 
 Create Algorithm(s) to identify key paragraph(s) - 5/4/15
+
 Set up/combine with chrome extension - 5/15/15
   -	pdf conversion
 
