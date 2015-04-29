@@ -43,9 +43,9 @@ def get_key_words(text):
             c[x]=1
     counter = 25
     for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
-        if (counter > 0) & (len(str(x)) > 3 ):
+            if (counter > 0) & (len(str(x)) > 4 or str(x).isupper()):
             #print str(x),str(y)+"\n"
-            counter-=1
+                counter-=1
     print c
     return c
 
