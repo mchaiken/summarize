@@ -46,24 +46,50 @@ def get_key_words(text):
             if (counter > 0) & (len(str(x)) > 4 or str(x).isupper()):
             #print str(x),str(y)+"\n"
                 counter-=1
-    print c
+                    # print c
     return c
 
+
+def get_key_phrases(text):
+    l =text.split(" ")
+    c={}
+    for x in range(0,len(l)-1):
+        phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
+        #x=x.strip("()!,?.\n:");
+        if phrase in c.keys():
+            c[phrase]+=1
+        else:
+            c[phrase]=1
+    counter = 25
+    # for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
+    #  if (counter > 0) & (len(str(x)) > 4 or str(x).isupper()):
+    #       #print str(x),str(y)+"\n"
+    #       counter-=1
+    #print c
+    return c
 def get_paragraph_points(text):
     paras = text.split("\n\n")
     paradict={}
+    key_phrases= get_key_phrases(text)
     key_words= get_key_words(text)
     for para in paras:
         paradict[para]=0
-        for word in para.split(" "):
-            if word in key_words.keys():
+        l=para.split(" ")
+        for x in range(0,len(l)-1):
+            phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
+            word = l[x].strip("()!,?.\n:")
+            if phrase in key_phrases.keys():
+                paradict[para]+=(key_phrases[phrase]*5)
+            elif word in key_words.keys():
                 paradict[para]+=key_words[word]
+
                     # for para in paradict.keys():
         #paradict[para]/=len(para.split(" "))
         #print para + " " +str(paradict[para])
 #print "\n"
 
     return paradict
+
 
 
 def findNMostCommon(dict,n):
