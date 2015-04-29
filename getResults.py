@@ -1,5 +1,5 @@
-import re, google, urllib
-from bs4 import BeautifulSoup, SoupStrainer
+#import re, google, urllib
+
 
 
 def addToDict(string,dict):
@@ -19,64 +19,19 @@ def findMostCommon(dict, content):
     #print content_words.lower()
     return most_common_key
 
+
+
+
 def findWho(text, content):
     names = {}
-    regex = "([A-Z]\w*|Mr.|Mrs.|Ms.|Dr|Sir.)\s([A-Z]\w*\s?)+"
+    regex = "([A-Z]\w*|Mr.|Mrs.|Ms.|Dr.|Sir.)\s([A-Z]\w*\s?)+"
     for match in re.finditer(regex, text):
         addToDict(match.group(),names)
-    return names
-#return findMostCommon(names, content)
-
-def findWhen(text, content):
-    dates = {}
-    regex = "(January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{1,4}( BC| AD|)?"
-    for match in re.finditer(regex, text):
-        addToDict(match.group(),dates)
-    return findMostCommon(dates, content)
-
-def findWhere(google_results, content):
-    locations=["street","alley","avenue","place","st","drive","ave","manor","house","school","tower","building","road","city","state","nation"]
-    regex="((\d{1,4}\w?) [A-Z]\w+ ([A-Z]\S+ )+)"
-    results = re.findall(regex,google_results)
-    answers={}
-    print results
-    for result in results:
-        loc=False;
-        for word in result[0].split(" "):
-            if word.lower() in locations:
-                loc=True
-        if loc:
-            addToDict(result[0],answers)
-    print answers
-    return findMostCommon(answers,content)
+    return findMostCommon(names, content)
 
 
 
-f=findWho(open("communist.txt",'r').read(),"")
-#print f
-#r=findMostCommon(f,"")
-#print r
-
-
-def search_query(question):
-    question_word= (question.split(" ")[0]).lower()
-    content_words=" ".join(question.split(" ")[1:])
-    g= google.search(question, num=20, stop=20)
-    search_results=""
-    only_p= SoupStrainer("p")
-
-    for result in g:
-        search_results += BeautifulSoup(urllib.urlopen(result),parse_only=only_p).get_text()
-        #print search_results
-
-    response=""
-    if question_word == "who":
-        response = findWho(search_results,content_words)
-    elif question_word == "where":
-        response = findWhere(search_results, content_words)
-    elif question_word == "when":
-        response = findWhen(search_results,content_words)
-    return response
+# return response
 def get_key_words(text):
     l =text.split(" ")
     c={}
@@ -88,13 +43,14 @@ def get_key_words(text):
             c[x]=1
     counter = 25
     for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
-        if (counter > 0) & (len(str(x)) > 4 ):
+        if (counter > 0) & (len(str(x)) > 3 ):
             #print str(x),str(y)+"\n"
             counter-=1
+    print c
     return c
 
 def get_paragraph_points(text):
-    paras = text.split("\n")
+    paras = text.split("\n\n")
     paradict={}
     key_words= get_key_words(text)
     for para in paras:
@@ -102,13 +58,26 @@ def get_paragraph_points(text):
         for word in para.split(" "):
             if word in key_words.keys():
                 paradict[para]+=key_words[word]
-    for para in paradict.keys():
+                    # for para in paradict.keys():
         #paradict[para]/=len(para.split(" "))
-        print para + " " +str(paradict[para])
-        print "\n"
+        #print para + " " +str(paradict[para])
+#print "\n"
 
     return paradict
 
-print findMostCommon(get_paragraph_points(open("communist.txt",'r').read()), "")
+
+def findNMostCommon(dict,n):
+    
+    most_common=[]
+    for key in dict.keys():
+        most_common.append((dict[key], key));
+    
+    minScore= sorted(most_common)[::-1][n-1:n][0][0]
+    print minScore
+    for x in dict.keys():
+        if dict[x] >= minScore:
+            print x + "\n"
+
+findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
 
 
