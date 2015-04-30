@@ -40,25 +40,23 @@ def get_key_words(text):
     #accounting for second word
     exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
     prop_nouns = re.findall(exp,text)
-    pn={}
     for x in prop_nouns:
-        if x[0] in pn.keys():
-            pn[x[0]] +=1
+        if x[0] in c.keys():
+            c[x[0]] +=1
         else:
-            pn[x[0]]=1
-    print pn        
-    for x in l:
-        x=x.strip("()!,?.\n:");
-        if x in c.keys():
-            c[x]+=1
-        else:
-            c[x]=1
-    counter = 25
-    for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
-            if (counter > 0) & (len(str(x)) > 4 or (str(x) in pn.keys())):
-            #print str(x),str(y)+"\n"
-                counter-=1
+            c[x[0]]=1
     print c
+    for x in l:
+        x=x.strip("()!,?.\n:")
+        if x.islower() and len(x) > 3:
+            if x in c.keys():
+                c[x]+=1
+            else:
+                c[x]=1
+    for x in c.keys():
+        if c[x] < 3:
+            c[x] = 0
+
     return c
 
 
@@ -82,24 +80,32 @@ def get_key_phrases(text):
 def get_paragraph_points(text):
     paras = text.split("\n\n")
     paradict={}
-    key_phrases= get_key_phrases(text)
+    #key_phrases= get_key_phrases(text)
     key_words= get_key_words(text)
     print key_words
     for para in paras:
         paradict[para]=0
         l=para.split(" ")
+        exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
+        prop_nouns = re.findall(exp,text)
         for x in range(0,len(l)-1):
-            phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
+            #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
             word = l[x].strip("()!,?.\n:")
-            if phrase in key_phrases.keys():
-                paradict[para]+=(key_phrases[phrase]*5)
-            elif word in key_words.keys():
-                paradict[para]+=key_words[word]
+            if word.islower() and len(str(x)) > 3:
+                paradict[para]+=(key_words[word])
+        for x in prop_nouns:
+            paradict[para] += (key_words[x[0]])
+    
+    print paradict.values()
+
+
 
                     # for para in paradict.keys():
         #paradict[para]/=len(para.split(" "))
         #print para + " " +str(paradict[para])
 #print "\n"
+ 
+
 
     return paradict
 
