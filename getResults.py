@@ -55,7 +55,7 @@ def get_key_words(text):
             c[x]=1
     counter = 25
     for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
-            if (counter > 0) & (len(str(x)) > 4 or pn.hasKey(str(x))):
+            if (counter > 0) & (len(str(x)) > 4 or (str(x) in pn.keys())):
             #print str(x),str(y)+"\n"
                 counter-=1
     print c
@@ -84,6 +84,7 @@ def get_paragraph_points(text):
     paradict={}
     key_phrases= get_key_phrases(text)
     key_words= get_key_words(text)
+    print key_words
     for para in paras:
         paradict[para]=0
         l=para.split(" ")
