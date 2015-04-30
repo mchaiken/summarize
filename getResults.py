@@ -47,7 +47,9 @@ def get_key_words(text):
             c[x[0]]=1
     print c
     for x in l:
-        x=x.strip("()!,?.\n:")
+        punc = '''()!,?.\n:\;"'''
+        while (x[0] in punc) or (x[len(x)-1] in punc):
+                x = x.strip(punc)
         if x.islower() and len(x) > 3:
             if x in c.keys():
                 c[x]+=1
@@ -65,7 +67,7 @@ def get_key_phrases(text):
     c={}
     for x in range(0,len(l)-1):
         phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
-        #x=x.strip("()!,?.\n:");
+        #x=x.strip("()!,?.\n:;");
         if phrase in c.keys():
             c[phrase]+=1
         else:
@@ -87,15 +89,21 @@ def get_paragraph_points(text):
         paradict[para]=0
         l=para.split(" ")
         exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
-        prop_nouns = re.findall(exp,text)
+        prop_nouns = re.findall(exp,para)
         for x in range(0,len(l)-1):
             #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
-            word = l[x].strip("()!,?.\n:")
-            if word.islower() and len(str(x)) > 3:
-                paradict[para]+=(key_words[word])
+            punc = '''()!,?.\n:\"'''
+            word = l[x]
+            while (word[0] in punc) or (word[len(word)-1] in punc):             
+                word = word.strip(punc)
+            if word.islower() and len(str(word)) > 3:
+                #print word
+                if word in key_words.keys():
+                    paradict[para]+=(key_words[word])
         for x in prop_nouns:
             paradict[para] += (key_words[x[0]])
-    
+        #print para + "\n~~~~~~~~~~~~~~~~~"
+        print paradict[para]
     print paradict.values()
 
 
@@ -118,9 +126,10 @@ def findNMostCommon(dict,n):
         most_common.append((dict[key], key));
     
     minScore= sorted(most_common)[::-1][n-1:n][0][0]
-    print minScore
+    #print minScore
     for x in dict.keys():
         if dict[x] >= minScore:
+            #pass
             print x + "\n"
 
 findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
