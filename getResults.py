@@ -37,6 +37,7 @@ def get_key_words(text):
     l =text.split(" ")
     c={}
     #exp = '''[^\s.\"?] ([A-Z]\w+)'''
+    #accounting for second word
     exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
     prop_nouns = re.findall(exp,text)
     pn={}
@@ -54,10 +55,10 @@ def get_key_words(text):
             c[x]=1
     counter = 25
     for x,y in sorted(c.iteritems(), key=lambda item: -item[1]):
-            if (counter > 0) & (len(str(x)) > 4 or str(x).isupper()):
+            if (counter > 0) & (len(str(x)) > 4 or pn.hasKey(str(x))):
             #print str(x),str(y)+"\n"
                 counter-=1
-                    # print c
+    print c
     return c
 
 
