@@ -1,4 +1,5 @@
 #import re, google, urllib
+import re
 
 
 
@@ -35,6 +36,16 @@ def findWho(text, content):
 def get_key_words(text):
     l =text.split(" ")
     c={}
+    #exp = '''[^\s.\"?] ([A-Z]\w+)'''
+    exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
+    prop_nouns = re.findall(exp,text)
+    pn={}
+    for x in prop_nouns:
+        if x[0] in pn.keys():
+            pn[x[0]] +=1
+        else:
+            pn[x[0]]=1
+    print pn        
     for x in l:
         x=x.strip("()!,?.\n:");
         if x in c.keys():
