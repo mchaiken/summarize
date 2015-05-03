@@ -1,0 +1,82 @@
+body {
+  height: 100%;
+  background: url(/static/img/school.png) repeat center center fixed;
+  color: white !important;
+}
+
+input {
+  color: black !important;
+}
+
+.highlight {
+	color: rgba(46, 204, 113,1.0) !important;
+}
+
+.main {
+  font-size: 90px;
+  padding: 10px 40px;
+  text-transform: uppercase;
+}
+
+.button {
+  font-family: inherit;
+  background-color: rgba(46, 204, 113,1.0);
+  color: #fff;
+  border: 1px solid rgba(46, 204, 113,1.0) !important; 
+}
+.button:hover {
+  background-color: #fff;
+  color: rgba(46, 204, 113,1.0);
+}
+
+.button-opposite {
+    font-family: inherit;
+    background-color: #fff;
+    color: rgba(46, 204, 113,1.0);
+    border: 1px solid #fff !important; 
+}
+.button-opposite:hover {
+    background-color: rgba(46, 204, 113,1.0);
+    color: #fff;
+}
+
+.center-block {
+  background-color: rgba(48, 48, 48, 0.8);
+  border: 10px solid rgba(255,255,255,0.0);
+  margin-left: 25%;
+  margin-right: 25%;
+
+  transition: border-color 0.6s ease-in-out; 
+  -webkit-transition: border-color 0.6s ease-in-out; 
+  -moz-transition: border-color 0.6s ease-in-out; 
+  -o-transition: border-color 0.6s ease-in-out;
+}
+
+.center-block:hover {
+	border-color: rgba(46, 204, 113,1.0);
+}
+
+a {
+  background-color: transparent !important;
+  transition: transform 0.6s !important;
+  -moz-transition: -moz-transform 0.6s !important;
+  -webkit-transition: -webkit-transform 0.6s !important;
+}
+
+a::before {
+  transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+}
+
+a:hover,
+a:focus {
+  transform: translateY(-15%);
+  -moz-transform: translateY(-15%);
+  -webkit-transform: translateY(-15%);
+}
+
+.center-block {
+  margin-top: 15%;
+}
+
