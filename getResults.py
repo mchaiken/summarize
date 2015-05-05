@@ -1,5 +1,5 @@
 #import re, google, urllib
-import re
+import re, operator
 
 
 
@@ -85,8 +85,9 @@ def get_paragraph_points(text):
     #key_phrases= get_key_phrases(text)
     key_words= get_key_words(text)
     print key_words
+    pos = 0
     for para in paras:
-        paradict[para]=0
+        paradict[para]=[0,pos]
         l=para.split(" ")
         exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
         prop_nouns = re.findall(exp,para)
@@ -99,14 +100,18 @@ def get_paragraph_points(text):
             if word.islower() and len(str(word)) > 3:
                 #print word
                 if word in key_words.keys():
-                    paradict[para]+=(key_words[word])
+                    paradict[para][0]+=(key_words[word])
         for x in prop_nouns:
-            paradict[para] += (key_words[x[0]])
-        #print para + "\n~~~~~~~~~~~~~~~~~"
-        print paradict[para]
+            paradict[para][0] += (key_words[x[0]])
+        pos += 1
+     #print para + "\n~~~~~~~~~~~~~~~~~"
+       # print paradict[para]
     print paradict.values()
 
-
+    
+    for x in sorted(paradict.items(), key=lambda item: item[0]):
+        print x
+    #print paradict_sort
 
                     # for para in paradict.keys():
         #paradict[para]/=len(para.split(" "))
