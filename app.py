@@ -34,7 +34,8 @@ def summarize(url):
     search_results=""
     only_p= SoupStrainer("p")
     paras= []
-    html = urllib.urlopen(url).read()
+    for result in g:
+        paras.append(BeautifulSoup(urllib.urlopen(url),parse_only=only_p).get_text())
     #top = findNMostCommon(get_paragraph_points(paras))
     print "HTML: "+html
 
