@@ -1,7 +1,7 @@
 #import re, google, urllib
 import re
 
-
+EXP = '''[^\s.\"?] (([A-Z]\w+ )+)'''
 
 def addToDict(string,dict):
     if string in dict:
@@ -38,8 +38,7 @@ def get_key_words(text):
     c={}
     #exp = '''[^\s.\"?] ([A-Z]\w+)'''
     #accounting for second word
-    exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
-    prop_nouns = re.findall(exp,text)
+    prop_nouns = re.findall(EXP,text)
     for x in prop_nouns:
         if x[0] in c.keys():
             c[x[0]] +=1
@@ -88,8 +87,7 @@ def get_paragraph_points(text):
     for para in paras:
         paradict[para]=0
         l=para.split(" ")
-        exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
-        prop_nouns = re.findall(exp,para)
+        prop_nouns = re.findall(EXP,para)
         for x in range(0,len(l)-1):
             #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
             punc = '''()!,?.\n:\"'''
@@ -133,5 +131,3 @@ def findNMostCommon(dict,n):
             print x + "\n"
 
 findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
-
-
