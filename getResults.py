@@ -79,11 +79,10 @@ def get_key_phrases(text):
     #       counter-=1
     #print c
     return c
-def get_paragraph_points(text):
-    paras = text.split("\n\n")
+def get_paragraph_points(paras):
     paradict={}
     #key_phrases= get_key_phrases(text)
-    key_words= get_key_words(text)
+    key_words= get_key_words(" ".join(paras))
     print key_words
     for para in paras:
         paradict[para]=0
@@ -132,6 +131,6 @@ def findNMostCommon(dict,n):
             #pass
             print x + "\n"
 
-findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
+#findNMostCommon(get_paragraph_points(open("communist.txt",'r').read().split("\n\n")), 3)
 
 
