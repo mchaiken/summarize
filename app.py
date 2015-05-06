@@ -29,15 +29,14 @@ def index():
 def summarize(url):
     print url
     url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
-    url = url.replace("%9","/")
+    url = url.replace("%9l","/")
     print url
     search_results=""
     only_p= SoupStrainer("p")
     paras= []
-    for result in g:
-        paras.append(BeautifulSoup(urllib.urlopen(url),parse_only=only_p).get_text())
+    paras.append(BeautifulSoup(urllib.urlopen(url).read(),parse_only=only_p).get_text())
     #top = findNMostCommon(get_paragraph_points(paras))
-    print "HTML: "+html
+    print "HTML: "+str(paras)
 
 
 @app.route("/about", methods=["GET","POST"])
