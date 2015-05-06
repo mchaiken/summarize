@@ -1,5 +1,5 @@
 #import re, google, urllib
-import re
+import re, operator
 
 EXP = '''[^\s.\"?] (([A-Z]\w+ )+)'''
 
@@ -80,14 +80,20 @@ def get_key_phrases(text):
     return c
 def get_paragraph_points(text):
     paras = text.split("\n\n")
-    paradict={}
+    paralist = []
     #key_phrases= get_key_phrases(text)
     key_words= get_key_words(text)
-    print key_words
+    #print key_words
+    pos = 0
     for para in paras:
-        paradict[para]=0
         l=para.split(" ")
+<<<<<<< HEAD
         prop_nouns = re.findall(EXP,para)
+=======
+        exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
+        prop_nouns = re.findall(exp,para)
+        count = 0
+>>>>>>> 07c85f3a8f4d8dd73aac2607971cc286846b4a91
         for x in range(0,len(l)-1):
             #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
             punc = '''()!,?.\n:\"'''
@@ -97,23 +103,14 @@ def get_paragraph_points(text):
             if word.islower() and len(str(word)) > 3:
                 #print word
                 if word in key_words.keys():
-                    paradict[para]+=(key_words[word])
+                    count += key_words[word]
         for x in prop_nouns:
-            paradict[para] += (key_words[x[0]])
-        #print para + "\n~~~~~~~~~~~~~~~~~"
-        print paradict[para]
-    print paradict.values()
-
-
-
-                    # for para in paradict.keys():
-        #paradict[para]/=len(para.split(" "))
-        #print para + " " +str(paradict[para])
-#print "\n"
- 
-
-
-    return paradict
+            count += key_words[x[0]]
+        pos += 1
+        paralist.append( (count,para,pos))
+     #print para + "\n~~~~~~~~~~~~~~~~~"
+    print paralist
+    return sorted( paralist, reverse = True)    
 
 
 
@@ -130,4 +127,10 @@ def findNMostCommon(dict,n):
             #pass
             print x + "\n"
 
+<<<<<<< HEAD
 findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
+=======
+#findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
+
+
+>>>>>>> 07c85f3a8f4d8dd73aac2607971cc286846b4a91

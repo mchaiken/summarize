@@ -19,3 +19,21 @@ def auth(page):
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
+
+@app.route("/about", methods=["GET","POST"])
+def about():
+    return render_template("about.html")
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+    return render_template("register.html")
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    return "login"
+
+if __name__ == "__main__":
+    app.debug = True
+    app.secret_key = "secret"
+    app.run()
+

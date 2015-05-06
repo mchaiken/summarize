@@ -1,18 +1,12 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-
-function click(e) {
-  chrome.tabs.executeScript(null,
-			    {
-file:"myscript.js"});
-  window.close();
+function popup(url,page_content) {
+    window.open(url, "Search 8traks", "width=500, height=500");
 }
+//popup("http://google.com");
 
-document.addEventListener('DOMContentLoaded', function () {
-  var divs = document.querySelectorAll('div');
-  for (var i = 0; i < divs.length; i++) {
-    divs[i].addEventListener('click', click);
-  }
-});
+
+var myWindow = window.open("", "MsgWindow", "width=200, height=100");
+myWindow.document.write();
+
+
+
+console.log(document.getElementsByTagName("p"));
