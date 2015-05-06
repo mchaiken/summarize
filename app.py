@@ -39,7 +39,21 @@ def summarize(url):
     print html
 
 
-if __name__=="__main__":
-    app.debug=True
-    app.run(host="0.0.0.0",port=5000)
+@app.route("/about", methods=["GET","POST"])
+def about():
+    return render_template("about.html")
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+    return render_template("register.html")
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    return "login"
+
+if __name__ == "__main__":
+    app.debug = True
+    app.secret_key = "secret"
     app.run()
+
+
