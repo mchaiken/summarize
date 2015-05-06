@@ -34,9 +34,9 @@ def summarize(url):
     search_results=""
     only_p= SoupStrainer("p")
     paras= []
-    html = urllib.urlopen('http://python.org/').read()
+    html = urllib.urlopen(url).read()
     #top = findNMostCommon(get_paragraph_points(paras))
-    print html
+    print "HTML: "+html
 
 
 @app.route("/about", methods=["GET","POST"])
