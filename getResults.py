@@ -47,7 +47,7 @@ def get_key_words(text):
     print c
     for x in l:
         punc = '''()!,?.\n:\;"'''
-        while (x[0] in punc) or (x[len(x)-1] in punc):
+        while (len(x) > 0 and ((x[0] in punc) or (x[len(x)-1] in punc))):
                 x = x.strip(punc)
         if x.islower() and len(x) > 3:
             if x in c.keys():
@@ -85,6 +85,7 @@ def get_paragraph_points(paras):
     key_words= get_key_words(" ".join(paras))
     print key_words
     pos=0
+    paralist= []
     for para in paras:
         l=para.split(" ")
         prop_nouns = re.findall(EXP,para)
@@ -93,14 +94,15 @@ def get_paragraph_points(paras):
             #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
             punc = '''()!,?.\n:\"'''
             word = l[x]
-            while (word[0] in punc) or (word[len(word)-1] in punc):             
+            while len(word) > 0 and ((word[0] in punc) or (word[len(word)-1] in punc)):             
                 word = word.strip(punc)
             if word.islower() and len(str(word)) > 3:
                 #print word
                 if word in key_words.keys():
                     count += key_words[word]
         for x in prop_nouns:
-            count += key_words[x[0]]
+            if x[0] in key_words.keys():
+                count += key_words[x[0]]
         pos += 1
         paralist.append( (count,para,pos))
      #print para + "\n~~~~~~~~~~~~~~~~~"

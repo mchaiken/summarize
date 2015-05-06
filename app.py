@@ -34,9 +34,11 @@ def summarize(url):
     search_results=""
     only_p= SoupStrainer("p")
     paras= []
-    paras.append(BeautifulSoup(urllib.urlopen(url).read(),parse_only=only_p).get_text())
-    #top = findNMostCommon(get_paragraph_points(paras))
-    print "HTML: "+str(paras)
+    bs = BeautifulSoup(urllib.urlopen(url).read(),parse_only=only_p).get_text()
+    print " ".join(bs.split('\n'))
+     
+    top = findNMostCommon(get_paragraph_points(bs.split('\n')))
+    print top
 
 
 @app.route("/about", methods=["GET","POST"])
