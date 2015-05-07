@@ -126,3 +126,20 @@ def findNMostCommon(dict,n):
 
 #findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
 
+from bs4 import BeautifulSoup
+from bs4.diagnose import diagnose
+import requests
+
+def get_text(url):
+    data=""
+    p=requests.get(url).content
+    soup=BeautifulSoup(p)    
+    paragraphs=soup.select("p.story-body-text.story-content")
+    data=p
+    text=""
+    for paragraph in paragraphs:
+        text+=paragraph.text
+    text=text.encode('ascii', 'ignore')
+    return str(text)
+
+print get_text("http://www.nytimes.com/2015/05/08/us/nsa-phone-records-collection-ruled-illegal-by-appeals-court.html?hp&action=click&pgtype=Homepage&module=first-column-region&region=top-news&WT.nav=top-news&_r=0")

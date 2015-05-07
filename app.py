@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from getResults import *
 import urllib
 import unicodedata
+import requests
 app = Flask(__name__)
 
 
@@ -40,6 +41,17 @@ def summarize(url):
      
     top =get_paragraph_points(bs.split('\n'))
     print top
+#def get_text(url):
+#    data=""
+#    p=requests.get(url).content
+#    soup=BeautifulSoup(p)    
+#    paragraphs=soup.select("p.story-body-text.story-content")
+#    data=p
+#    text=""
+#    for paragraph in paragraphs:
+#        text+=paragraph.text
+#    text=text.encode('ascii', 'ignore')
+#    return str(text)
 
 
 @app.route("/about", methods=["GET","POST"])
