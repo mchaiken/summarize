@@ -4,8 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Summarize</title>
+  <link rel="stylesheet" href="static/stylesheets/marketing.css">
 
 {% endblock head %}
+
+{% block menu %}
+<div class="header">
+   <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">Summarize</a>
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected"><a href="/" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item"><a href="/about" class="pure-menu-link">About Us</a></li>
+            <li class="pure-menu-item"><a href="/register" class="pure-menu-link">Sign Up</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock menu %}
 
 {% block body %}
 
