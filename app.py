@@ -28,19 +28,24 @@ def index():
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
+    '''
     print url
     url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
     url = url.replace("%9l","/")
     print url
-    search_results=""
-    only_p= SoupStrainer("p")
-    paras= []
-    print "HTML:"+ urllib.urlopen(url).read()
-    bs = BeautifulSoup(urllib.urlopen(url).read(),parse_only=only_p).get_text()
-    print " ".join(bs.split('\n'))
-     
-    top =get_paragraph_points(bs.split('\n'))
-    print top
+    p=requests.get(url).content
+    soup=BeautifulSoup(p)
+    paragraphs=soup.select("p.story-body-text.story-content")
+    data=p
+    text = []
+    for paragraph in paragraphs:
+        text.append(paragraph.text)
+    top =get_paragraph_points(text)
+    '''
+    paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
+    return render_template("summary.html",paragraphs=paragraphs)
+
+
 #def get_text(url):
 #    data=""
 #    p=requests.get(url).content
