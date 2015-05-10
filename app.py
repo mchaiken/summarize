@@ -22,7 +22,7 @@ def auth(page):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    return render_template("index.html",home=True)
 
 
 
@@ -61,11 +61,11 @@ def summarize(url):
 
 @app.route("/about", methods=["GET","POST"])
 def about():
-    return render_template("about.html")
+    return render_template("about.html",about=True)
 
 @app.route("/register", methods=["GET","POST"])
 def register():
-    return render_template("register.html")
+    return render_template("register.html",register=True)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
