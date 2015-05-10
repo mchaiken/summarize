@@ -13,11 +13,18 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-       </ul>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
-	<li class="active"><a href="/">Home</a></li>
-        <li><a href="about">About</a></li>
-       <li><a href="register">Register</a></li>
+	
+	<li {% if home %}class="active" {%endif%}>
+	<a href="/">Home</a></li>
+
+
+	<li {% if about %}class="active"{%endif%}>
+        <a href="about">About</a></li>
+
+	<li {% if register %}class="active"{%endif%}>
+	<a href="register">Register</a></li>
       </ul>
     </div>
   </div>
