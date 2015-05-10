@@ -1,7 +1,7 @@
 #import re, google, urllib
-import re
+import re, operator
 
-
+EXP = '''[^\s.\"?] (([A-Z]\w+ )+)'''
 
 def addToDict(string,dict):
     if string in dict:
@@ -38,8 +38,7 @@ def get_key_words(text):
     c={}
     #exp = '''[^\s.\"?] ([A-Z]\w+)'''
     #accounting for second word
-    exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
-    prop_nouns = re.findall(exp,text)
+    prop_nouns = re.findall(EXP,text)
     for x in prop_nouns:
         if x[0] in c.keys():
             c[x[0]] +=1
@@ -48,7 +47,7 @@ def get_key_words(text):
     print c
     for x in l:
         punc = '''()!,?.\n:\;"'''
-        while (x[0] in punc) or (x[len(x)-1] in punc):
+        while (len(x) > 0 and ((x[0] in punc) or (x[len(x)-1] in punc))):
                 x = x.strip(punc)
         if x.islower() and len(x) > 3:
             if x in c.keys():
@@ -79,43 +78,36 @@ def get_key_phrases(text):
     #       counter-=1
     #print c
     return c
-def get_paragraph_points(text):
-    paras = text.split("\n\n")
+
+def get_paragraph_points(paras):
     paradict={}
     #key_phrases= get_key_phrases(text)
-    key_words= get_key_words(text)
+    key_words= get_key_words(" ".join(paras))
     print key_words
+    pos=0
+    paralist= []
     for para in paras:
-        paradict[para]=0
         l=para.split(" ")
-        exp = '''[^\s.\"?] ([A-Z]\w+( [A-Z]\w+)?)'''
-        prop_nouns = re.findall(exp,para)
+        prop_nouns = re.findall(EXP,para)
+        count = 0
         for x in range(0,len(l)-1):
             #phrase = l[x].strip("()!,?.\n:")+" "+l[x+1].strip("()!,?.\n:")
             punc = '''()!,?.\n:\"'''
             word = l[x]
-            while (word[0] in punc) or (word[len(word)-1] in punc):             
+            while len(word) > 0 and ((word[0] in punc) or (word[len(word)-1] in punc)):             
                 word = word.strip(punc)
             if word.islower() and len(str(word)) > 3:
                 #print word
                 if word in key_words.keys():
-                    paradict[para]+=(key_words[word])
+                    count += key_words[word]
         for x in prop_nouns:
-            paradict[para] += (key_words[x[0]])
-        #print para + "\n~~~~~~~~~~~~~~~~~"
-        print paradict[para]
-    print paradict.values()
-
-
-
-                    # for para in paradict.keys():
-        #paradict[para]/=len(para.split(" "))
-        #print para + " " +str(paradict[para])
-#print "\n"
- 
-
-
-    return paradict
+            if x[0] in key_words.keys():
+                count += key_words[x[0]]
+        pos += 1
+        paralist.append( (count,para,pos))
+     #print para + "\n~~~~~~~~~~~~~~~~~"
+    print paralist
+    return sorted( paralist, reverse = True)    
 
 
 
@@ -132,6 +124,22 @@ def findNMostCommon(dict,n):
             #pass
             print x + "\n"
 
-findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
+#findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
 
+from bs4 import BeautifulSoup
+from bs4.diagnose import diagnose
+import requests
 
+def get_text(url):
+    data=""
+    p=requests.get(url).content
+    soup=BeautifulSoup(p)    
+    paragraphs=soup.select("p.story-body-text.story-content")
+    data=p
+    text=""
+    for paragraph in paragraphs:
+        text+=paragraph.text
+    text=text.encode('ascii', 'ignore')
+    return str(text)
+
+#print get_text("http://www.nytimes.com/2015/05/08/us/nsa-phone-records-collection-ruled-illegal-by-appeals-court.html?hp&action=click&pgtype=Homepage&module=first-column-region&region=top-news&WT.nav=top-news&_r=0")
