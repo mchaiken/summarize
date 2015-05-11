@@ -5,7 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Summarize</title>
   <link rel="stylesheet" href="static/stylesheets/marketing.css">
+<style>
+#login {
+top:50px;
+}
 
+#login-b {
+background-color: white;
+color:#3094AB;
+font-size: 120%;
+}
+
+</style>
 {% endblock head %}
 
 {% block body %}
@@ -19,7 +30,38 @@
             Yay no more hw
         </p>
         <p>
-            <a href="/login" class="pure-button pure-button-primary">Sign in</a>
+            <button class="pure-button" data-toggle="modal" data-target="#login" id="login-b">SIGN IN</button></div>
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" align="center">Sign In</h4>
+      </div>
+      <div class="modal-body">
+     <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+    </div>
+  </div>
+  <p align="center">Don't have an account? Register <a href="register">here</a>.</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Login</button></form>
+      </div>
+    </div>
+  </div>
+</div>
         </p>
     </div>
 </div>

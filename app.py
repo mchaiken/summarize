@@ -69,7 +69,7 @@ def register():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    return "login"
+    return render_template("login.html", login=True)
 
 if __name__ == "__main__":
     app.debug = True
