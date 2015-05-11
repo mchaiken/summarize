@@ -133,8 +133,10 @@ import requests
 def get_text(url):
     data=""
     p=requests.get(url).content
+    print p
     soup=BeautifulSoup(p)    
     paragraphs=soup.select("p.story-body-text.story-content")
+    paragraphs+=soup.select("p")
     data=p
     text=[]
     for paragraph in paragraphs:
