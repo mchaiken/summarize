@@ -29,7 +29,7 @@
 </div>
 <div hidden id = "hidden">
     {%for para in paragraphs %}
-    <p  class="para"> {{para[2]}} </p>
+    <p  class="para {{para[2]}}"> {{para[1]}} </p>
     {%endfor%}
 </div>
 {%endblock%}
@@ -43,16 +43,32 @@
     console.log(c);
     console.log({{i}});
     var paras = $(".para");
+var forDisplay = {};
     for (var x = 0; x < c && x < paras.length; x++){
         var p1=$(paras[x]).clone();
         //p1.show();
         console.log(p1)
         $(p1).removeClass("para");
-        $(p1).appendTo('#summary')
-        console.log(x)
+        //$(p1).appendTo('#summary');
+        forDisplay[$(p1).attr("class")] = p1;
+	console.log(x)
     }
+console.log(forDisplay);
+forDKeys=Object.keys(forDisplay);
+
+function sortNumber(a,b){
+	return a - b;
+}
+for(var z = 0; z<forDKeys.length;z++){
+		   forDKeys[z] = parseInt(forDKeys[z]);
   
-    
+    }
+forDKeys = forDKeys.sort(sortNumber);
+console.log(forDKeys);
+for(var y = 0; y<forDKeys.length;y++){
+	$(forDisplay[forDKeys[y]]).appendTo('#summary');	   
+  
+    }
 }
 </script>
 

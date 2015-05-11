@@ -28,11 +28,12 @@ def index():
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
-    '''
+
     print url
     url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
     url = url.replace("%9l","/")
     print url
+    '''
     p=requests.get(url).content
     soup=BeautifulSoup(p)
     paragraphs=soup.select("p.story-body-text.story-content")
@@ -42,7 +43,9 @@ def summarize(url):
         text.append(paragraph.text)
     top =get_paragraph_points(text)
     '''
-    paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
+    paragraphs = get_paragraph_points(get_text(url))
+    print paragraphs
+    #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
     return render_template("summary.html",paragraphs=paragraphs)
 
 

@@ -136,10 +136,10 @@ def get_text(url):
     soup=BeautifulSoup(p)    
     paragraphs=soup.select("p.story-body-text.story-content")
     data=p
-    text=""
+    text=[]
     for paragraph in paragraphs:
-        text+=paragraph.text
-    text=text.encode('ascii', 'ignore')
-    return str(text)
+        text.append(str(paragraph.text.encode('ascii', 'ignore')))
+    print text
+    return text
 
-print get_text("http://www.nytimes.com/2015/05/08/us/nsa-phone-records-collection-ruled-illegal-by-appeals-court.html?hp&action=click&pgtype=Homepage&module=first-column-region&region=top-news&WT.nav=top-news&_r=0")
+#print get_text("http://www.nytimes.com/2015/05/08/us/nsa-phone-records-collection-ruled-illegal-by-appeals-court.html?hp&action=click&pgtype=Homepage&module=first-column-region&region=top-news&WT.nav=top-news&_r=0")
