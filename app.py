@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-from pymongo import Connection
+from pymongo import MongoClient
 from bs4 import BeautifulSoup, SoupStrainer
 from getResults import *
 import urllib
