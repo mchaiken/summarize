@@ -43,10 +43,11 @@ def summarize(url):
         text.append(paragraph.text)
     top =get_paragraph_points(text)
     '''
-    paragraphs = get_paragraph_points(get_text(url))
+    text = get_text(url)
+    paragraphs = get_paragraph_points(text[0])
     print paragraphs
     #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
-    return render_template("summary.html",paragraphs=paragraphs)
+    return render_template("summary.html",paragraphs=paragraphs, title = text[1])
 
 
 #def get_text(url):
