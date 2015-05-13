@@ -1,12 +1,16 @@
-function popup(url,page_content) {
-    window.open(url, "Search 8traks", "width=500, height=500");
+function popup(url) {
+    var w = window.open(url, "Summarize!", "width=500, height=500");
+    return w
 }
-//popup("http://google.com");
+popup("http://google.com");
 
+var url = window.location.href;
 
-var myWindow = window.open("", "MsgWindow", "width=200, height=100");
-myWindow.document.write();
+while (url.indexOf("/") != -1){
+    url=url.replace("/","%9l");
+}
 
-
-
-console.log(document.getElementsByTagName("p"));
+var win = popup("localhost:5000/summary/"+url);
+//win.location.href= url;
+console.log(win)
+//win.location.onLoad = win.location.reload();

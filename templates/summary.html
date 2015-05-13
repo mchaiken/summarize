@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Summarize</title>
+        
+        {% endblock head %}
+
+{%block body %}
+
+
+<h1>{{title}}</h1>
+<div>
+    <br><br><br>
+<label>Number of Significant Paragraphs</label>
+
+<select id="count" class="pure-input-1-2" onchange= "update()">
+    {% set i= 0 %}
+    {% for i in range(11) %}
+        <option>{{i}}</option>
+    {%set i = i +1 %}
+    {%endfor%}
+</select>
+
+</div>
+
+<div id = "summary">
+</div>
+<div hidden id = "hidden">
+    {%for para in paragraphs %}
+    <p  class="para {{para[2]}}"> {{para[1]}} </p>
+    {%endfor%}
+</div>
+{%endblock%}
+    
+{%block script %}
+<script type="text/javascript">
+ function update(){
+    var e = $('#count')[0];
+    $('#summary').empty()
+    var c = parseInt(e.options[e.selectedIndex].value);
+    console.log(c);
+    console.log({{i}});
+    var paras = $(".para");
+var forDisplay = {};
+    for (var x = 0; x < c && x < paras.length; x++){
+        var p1=$(paras[x]).clone();
+        //p1.show();
+        console.log(p1)
+        $(p1).removeClass("para");
+        //$(p1).appendTo('#summary');
+        forDisplay[$(p1).attr("class")] = p1;
+	console.log(x)
+    }
+console.log(forDisplay);
+forDKeys=Object.keys(forDisplay);
+
+function sortNumber(a,b){
+	return a - b;
+}
+for(var z = 0; z<forDKeys.length;z++){
+		   forDKeys[z] = parseInt(forDKeys[z]);
+  
+    }
+forDKeys = forDKeys.sort(sortNumber);
+console.log(forDKeys);
+for(var y = 0; y<forDKeys.length;y++){
+	$(forDisplay[forDKeys[y]]).appendTo('#summary');	   
+  
+    }
+}
+</script>
+
+{%endblock %}
