@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, session, redirect, url
 from pymongo import MongoClient
 from bs4 import BeautifulSoup, SoupStrainer
 from getResults import *
+from dbactions import *
 import urllib
 import unicodedata
 import requests
@@ -33,16 +34,7 @@ def summarize(url):
     url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
     url = url.replace("%9l","/")
     print url
-    '''
-    p=requests.get(url).content
-    soup=BeautifulSoup(p)
-    paragraphs=soup.select("p.story-body-text.story-content")
-    data=p
-    text = []
-    for paragraph in paragraphs:
-        text.append(paragraph.text)
-    top =get_paragraph_points(text)
-    '''
+
     text = get_text(url)
     paragraphs = get_paragraph_points(text[0])
     print paragraphs
@@ -73,6 +65,14 @@ def register():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
+    if method == "POST":
+        user  = authenticate(request.form["uname"],request.form["passwd"])
+        if user not == None:
+            session["user"]= user
+            redirect("/")
+        else:
+            flash("Invalid Login")
+        
     return render_template("login.html", login=True)
 
 if __name__ == "__main__":
