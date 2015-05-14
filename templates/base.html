@@ -1,29 +1,50 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-  <!--link rel="stylesheet" href="static/stylesheets/marketing-old-ie.css"-->
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-<link rel="stylesheet" href="static/stylesheets/nav.css">
+    <head>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
 
-
-
-    {% block head %}
-    {% endblock head %}
-
-  </head>
-
-  <body>
-
- 
-    {% block body %}
-    {% endblock body %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-    {% block script %}
-    {% endblock script %}
-  </body>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>                <!--link rel="stylesheet" href="static/stylesheets/marketing-old-ie.css"-->
+                                       <link rel="stylesheet" href="static/stylesheets/nav.css">
+                            
+                            
+                            
+                            {% block head %}
+                            {% endblock head %}
+                            
+                            </head>
+    
+    <body>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for category, message in messages %}
+            <div class= "container">
+            <div width = "80%" class="alert alert-dismissible alert-{{ category }}">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <center>{{message}}</center>
+            </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        
+        
+        {% block body %}
+        {% endblock body %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        
+        {% block script %}
+        {% endblock script %}
+    </body>
 </html>

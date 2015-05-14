@@ -61,17 +61,29 @@ def about():
 
 @app.route("/register", methods=["GET","POST"])
 def register():
+    if request.method == "POST":
+        
+        registered = register_user(request.form["fname"],request.form["lname"],request.form["email"],request.form["passwd"])
+        print registered
+        if registered:
+            flash("You have been registered! Login!", "success")
+            return redirect("/login")
+        else:
+            flash("That email is already registered!", "danger")
+
+
     return render_template("register.html",register=True)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    if method == "POST":
-        user  = authenticate(request.form["uname"],request.form["passwd"])
-        if user not == None:
+    if request.method == "POST":
+        user  = authenticate(request.form["email"],request.form["passwd"])
+        if not user == None:
             session["user"]= user
-            redirect("/")
+            return redirect("/")
         else:
             flash("Invalid Login")
+            print "Login Failed"
         
     return render_template("login.html", login=True)
 
