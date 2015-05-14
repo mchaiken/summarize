@@ -82,7 +82,7 @@ def login():
             session["user"]= user
             return redirect("/")
         else:
-            flash("Invalid Login")
+            flash("Invalid Login", "danger")
             print "Login Failed"
         
     return render_template("login.html", login=True)
