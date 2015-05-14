@@ -1,6 +1,6 @@
 {
-  "name": "Page Redder",
-  "description": "Make the current page red",
+  "name": "Summarizer",
+  "description": "Summarize the current page",
   "version": "2.0",
   "permissions": [
     "activeTab"
@@ -10,7 +10,7 @@
     "persistent": false
   },
   "browser_action": {
-    "default_title": "Make this page red"
+    "default_title": "Summarizer"
 
 
   },

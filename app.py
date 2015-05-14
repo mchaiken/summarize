@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-from pymongo import Connection
+from pymongo import MongoClient
 from bs4 import BeautifulSoup, SoupStrainer
 from getResults import *
+from dbactions import *
 import urllib
 import unicodedata
 import requests
@@ -28,22 +29,17 @@ def index():
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
-    '''
+
     print url
     url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
     url = url.replace("%9l","/")
     print url
-    p=requests.get(url).content
-    soup=BeautifulSoup(p)
-    paragraphs=soup.select("p.story-body-text.story-content")
-    data=p
-    text = []
-    for paragraph in paragraphs:
-        text.append(paragraph.text)
-    top =get_paragraph_points(text)
-    '''
-    paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
-    return render_template("summary.html",paragraphs=paragraphs)
+
+    text = get_text(url)
+    paragraphs = get_paragraph_points(text[0])
+    print paragraphs
+    #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
+    return render_template("summary.html",paragraphs=paragraphs, title = text[1])
 
 
 #def get_text(url):
@@ -69,7 +65,15 @@ def register():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    return "login"
+    if method == "POST":
+        user  = authenticate(request.form["uname"],request.form["passwd"])
+        if user not == None:
+            session["user"]= user
+            redirect("/")
+        else:
+            flash("Invalid Login")
+        
+    return render_template("login.html", login=True)
 
 if __name__ == "__main__":
     app.debug = True
