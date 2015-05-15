@@ -1,8 +1,8 @@
-from pymongo import Connection
+from pymongo import MongoClient
 
 
 #mongo setup
-conn = Connection()
+conn = MongoClient()
 db = conn["summarize"]
 
 #inserts the user's fb id and username into the collection
@@ -41,7 +41,8 @@ def has_url(url):
     return check
 
 def add_scrape(url,list,title):
-    db.urls.insert({"url":url,"list":list,"title":title})
+    if not(has_url(url)):
+        db.urls.insert({"url":url,"list":list,"title":title})
 
 
 

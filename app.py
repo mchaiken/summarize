@@ -41,7 +41,6 @@ def summarize(url):
     #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
     return render_template("summary.html",paragraphs=paragraphs, title = text[1])
 
-
 #def get_text(url):
 #    data=""
 #    p=requests.get(url).content
