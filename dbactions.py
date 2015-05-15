@@ -35,6 +35,13 @@ def authenticate(email, password):
         return None
 
 
+def has_url(url):
+    check = None
+    check = db.urls.find_one({'url':url})
+    return check
+
+def add_scrape(url,list,title):
+    db.urls.insert({"url":url,"list":list,"title":title})
 
 
 
