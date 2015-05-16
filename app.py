@@ -87,6 +87,10 @@ def login():
         
     return render_template("login.html", login=True)
 
+@app.route("/home", methods=["GET","POST"])
+def home():
+    return render_template("home.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "secret"
