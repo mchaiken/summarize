@@ -13,7 +13,6 @@ def register_user(fname,lname,email,passwd):
         return True
     return False
 
-
 def user_exists(email):
     check = None
     check = db.summarize.find_one({'email':email})
@@ -34,7 +33,11 @@ def authenticate(email, password):
         
         return None
 
-
+def saved_page(email,url,date):
+    user = db.summarize.find_one({'email':email})
+    folder = user["folder"]
+    folder.append((url,date))
+    
 def has_url(url):
     check = None
     check = db.urls.find_one({'url':url})
