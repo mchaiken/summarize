@@ -1,9 +1,48 @@
 {% extends 'base.html' %}
 
 {% block head %}
+
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Summarize</title>
+    <style>
+.navbar-default .navbar-nav>li>a {
+  color: #F9F3F3;
+  font-size: 18px;
+}
+.navbar-default .navbar-nav>li>a:hover {
+  color: #FFFFFF;
+}
+
+.navbar-default .navbar-brand {
+  color: #157D86;
+}
+    </style>
+    <!--style>
+
+.navbar li a {
+  background-color: #267081;
+}
+.navbar-inverse .navbar-nav>li>a{
+    
+    color: #BBBBBB;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+  background-color: #1F5F6E;
+}
+
+.navbar-nav li a{
+  line-height: 40px;
+}
+
+
+.navbar-default .navbar-inverse .navbar-nav li a:hover, .navbar-inverse .navbar-default .navbar-nav li a:focus {
+    background-color: #000000;
+    color: #000000;
+}
+    </style>
+    <!--
     <style>
      .navbar {
 z-index: 4;
@@ -21,11 +60,12 @@ body {
     padding-top: 80px; 
      }
      </style>
-        
+        -->
+         <link rel="stylesheet" href="/static/stylesheets/nav.css">
         {% endblock head %}
 
 {%block body %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -42,8 +82,8 @@ body {
       </ul>
       <ul class="nav navbar-nav navbar-right">
 	
-	<li class="active">
-	<a href="/">Save Summary</a></li>
+	<li class="btn btn-info">
+	<a href="#">Save Summary</a></li>
 
 
       </ul>
@@ -52,21 +92,27 @@ body {
 </nav>
 </div>
 
-	<div class="pure-g">
-	  <div class="pure-u-1-12"></div>
-	  <div class="pure-u-5-6">
-<h1>{{title}}</h1>
-<div>
-    <br><br><br>
-<label>Number of Significant Paragraphs</label>
-
-<select id="count" class="pure-input-1-2" onchange= "update()">
+<div class="pure-g">
+	<div class="pure-u-1-12"></div>
+  	 <div class="pure-u-5-6">
+  <h1>{{title}}</h1>
+  <div>
+      <br><br><br>
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="count" class="col-sm-6 control-label">Number of Significant Paragraphs</label>
+    <div class="col-xs-4">
+     <select id="count" class="form-control" onchange= "update()">
     {% set i= 0 %}
     {% for i in range(11) %}
         <option>{{i}}</option>
     {%set i = i +1 %}
     {%endfor%}
 </select>
+    </div>
+  </div>
+</form>
+
 
 </div>
 
