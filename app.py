@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, session, redirect, url_for
+getfrom flask import Flask, render_template, request, flash, session, redirect, url_for
 from pymongo import MongoClient
 from bs4 import BeautifulSoup, SoupStrainer
 from getResults import *
@@ -38,9 +38,9 @@ def summarize(url):
     text = get_text(url)
     paragraphs = get_paragraph_points(text[0])
     print paragraphs
+    #add_url = add_scrape()
     #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
     return render_template("summary.html",paragraphs=paragraphs, title = text[1])
-
 
 #def get_text(url):
 #    data=""
@@ -82,7 +82,7 @@ def login():
             session["user"]= user
             return redirect("/")
         else:
-            flash("Invalid Login")
+            flash("Invalid Login", "danger")
             print "Login Failed"
         
     return render_template("login.html", login=True)

@@ -3,16 +3,19 @@
     <head>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
             <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
         
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>                <!--link rel="stylesheet" href="static/stylesheets/marketing-old-ie.css"-->
-                                       <link rel="stylesheet" href="static/stylesheets/nav.css">
+        <!--link rel="stylesheet" href="static/stylesheets/marketing-old-ie.css"-->
+                <link rel="stylesheet" href="static/stylesheets/nav.css">
                             
                             
                             
@@ -28,7 +31,7 @@
         <ul class=flashes>
             {% for category, message in messages %}
             <div class= "container">
-            <div width = "80%" class="alert alert-dismissible alert-{{ category }}">
+            <div width = "80%" class="alert alert-dismissible alert-{{category}}">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <center>{{message}}</center>
             </div>
