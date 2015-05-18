@@ -1,5 +1,8 @@
-#import re, google, urllib
+from bs4 import BeautifulSoup
+from bs4.diagnose import diagnose
+import requests
 import re, operator
+from dbactions import add_scrape
 
 EXP = '''[^\s.\"?] (([A-Z]\w+ )+)'''
 
@@ -126,9 +129,7 @@ def findNMostCommon(dict,n):
 
 #findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
 
-from bs4 import BeautifulSoup
-from bs4.diagnose import diagnose
-import requests
+
 
 def get_text(url):
     try:
@@ -149,6 +150,7 @@ def get_text(url):
             text.append(str(paragraph.text.encode('ascii', 'ignore')))
         #print text
         print title
+        add_scrape(url,(text,title),title)
         return (text,title)
     except:
         return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
