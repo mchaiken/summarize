@@ -12,7 +12,7 @@ App.on("start", function(){
 
     var linkView = new App.LinkView({model:l1});
     console.log(linkView);
-    App.secondRegion.show(linkView);
+    //App.secondRegion.show(linkView);
 
     var linksView = new App.LinksView({collection:c});
     App.firstRegion.show(linksView);
@@ -39,10 +39,9 @@ var Links = Backbone.Collection.extend({
     comparator:"name"
 });
 
-var l1 = new Link({name:"thing"});
-var l2 = new Link({name:"thing2"});
+var l1 = new Link({title:"first article",date:"11/07/97",url:"meow.com"});
+var l2 = new Link({title:"second article",date:"11/08/98",url:"woof.com"});
 
 var c = new Links([l1,l2]);
-
 
 App.start();
