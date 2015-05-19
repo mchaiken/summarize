@@ -8,7 +8,10 @@
 {% endblock head %}
 
 {% block body %}
-
+{% if login %}
+{% include "nav-login.html"%}
+{% else%}
 {% include "nav-default.html" %}
+{% endif %}
 
 {%endblock%}

@@ -23,6 +23,9 @@ App.on("start", function(){
 App.LinkView = Marionette.ItemView.extend({
     template: "#link-template",
     tagName : "li",
+    attributes: {
+        "role": "presentation"
+    },
     modelEvents: {
 	"change":function(){
 	    this.render();
@@ -30,7 +33,10 @@ App.LinkView = Marionette.ItemView.extend({
 });
 
 App.LinksView = Marionette.CollectionView.extend({
-    childView: App.LinkView
+    childView: App.LinkView,
+    tagName: "ul",
+    className: "nav nav-pills nav-stacked"
+
 });
 
 var Link = Backbone.Model.extend();
