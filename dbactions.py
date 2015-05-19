@@ -28,12 +28,12 @@ def authenticate(email, password):
    
    
     if passwd == password:
-        return user
+        return user["email"]
     else:
         
         return None
 
-def saved_page(email,url,date):
+def saved_page(email,title,url,date):
     user = db.summarize.find_one({'email':email})
     folder = user["folder"]
     folder.append((url,date))
@@ -47,6 +47,7 @@ def add_scrape(url,list,title):
     if not(has_url(url)):
         db.urls.insert({"url":url,"list":list,"title":title})
 
-
+def get_user_urls(email):
+    return db.summarize.find_one({'email':email})["folders"]
 
 

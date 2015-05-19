@@ -91,9 +91,26 @@ def login():
 def home():
     return render_template("home.html", home=True)
 
+
+@app.route("/links")
+def links():
+    links = [x  for x in get_user_urls(session["user"])]
+    return json.dumps(urls)
+
+@app.route ("/link")
+def link(id = None):
+    j = request.get_json();
+    print id, j
+    if id == None:
+        id =j['content']
+
+
+    return json.dumps({'result':x})
+
 @app.route("/settings", methods=["GET","POST"])
 def settings():
     return render_template("settings.html", settings=True)
+
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "secret"
