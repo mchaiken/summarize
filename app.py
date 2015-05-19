@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from pymongo import MongoClient
 from bs4 import BeautifulSoup, SoupStrainer
+import time
+from datetime import date
 from getResults import *
 from dbactions import *
 import urllib
@@ -25,7 +27,15 @@ def auth(page):
 def index():
     return render_template("index.html",home=True)
 
-
+@app.route("/add/<url>/<title>")
+def add(url, title):
+    if "user" in session:
+        today = date.today()
+        date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
+        saved_page(session["user"],title,url,date)
+        message = ("Your article has been saved")
+    else:
+        message = ("You must log in ")
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
@@ -40,7 +50,7 @@ def summarize(url):
     print paragraphs
     #add_url = add_scrape()
     #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
-    return render_template("summary.html",paragraphs=paragraphs, title = text[1])
+    return render_template("summary.html",paragraphs=paragraphs, url=url,title = text[1])
 
 #def get_text(url):
 #    data=""
