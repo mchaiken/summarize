@@ -39,31 +39,21 @@ def add(url, title):
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
-
-    print url
-    url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
-    url = url.replace("%9l","/")
-    print url
-
-    text = get_text(url)
-    paragraphs = get_paragraph_points(text[0])
-    print paragraphs
-    #add_url = add_scrape()
-    #paragraphs=[(10, 10,'HAUSFKHDSFHDJ'),(10, 10,'dsaffgdhdgdhd')]
-    return render_template("summary.html",paragraphs=paragraphs, url=url,title = text[1])
-
-#def get_text(url):
-#    data=""
-#    p=requests.get(url).content
-#    soup=BeautifulSoup(p)    
-#    paragraphs=soup.select("p.story-body-text.story-content")
-#    data=p
-#    text=""
-#    for paragraph in paragraphs:
-#        text+=paragraph.text
-#    text=text.encode('ascii', 'ignore')
-#    return str(text)
-
+    check = has_url(url)
+    if check:
+        paragraphs = check["list"]
+        title = check["title"]
+    else:
+        print url
+        url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
+        url = url.replace("%9l","/")
+        print url
+        text = get_text(url)
+        paragraphs = get_paragraph_points(text[0])
+        print paragraphs
+        title = text[1]
+        add_scrape(url, paragraphs,title)
+    return render_template("summary.html",paragraphs=paragraphs, url=url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
 def about():
