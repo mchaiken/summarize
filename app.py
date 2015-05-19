@@ -40,9 +40,11 @@ def add(url, title):
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
     check = has_url(url)
+    old_url = url
     if check:
         paragraphs = check["list"]
         title = check["title"]
+        print "Retrieved"
     else:
         print url
         url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
@@ -52,7 +54,7 @@ def summarize(url):
         paragraphs = get_paragraph_points(text[0])
         print paragraphs
         title = text[1]
-        add_scrape(url, paragraphs,title)
+        add_scrape(old_url, paragraphs,title)
     return render_template("summary.html",paragraphs=paragraphs, url=url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
