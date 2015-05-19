@@ -24,7 +24,20 @@ a {
 {% include "nav-login.html" %}
 
 <script type="text/template" id="link-template">
-<a href="#"> <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> <%=title%>, <%=url%>, <%=date%> </a>
+  <div class="panel-heading" role="tab" id="heading-<%=url%">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="accordion" href="#collapse-<%=url%>" aria-expanded="true" aria-controls="collapse-<%=url%>">
+	<!-- <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>-->
+	<%=title%>, <%=url%>, <%=date%> </a>
+    </h4>
+  </div>
+<!--
+  <div id="collapse-<%url%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-<%=url%>">
+    <div class="panel-body">
+      /saved/<%=url%>
+    </div>
+  </div>
+-->
 </script>
 
 <div class="pure-g">
@@ -32,9 +45,7 @@ a {
   <div class="pure-u-5-6">
     <h1>Yay the files</h1>
 
-
- 
-    <div class="nav nav-pills nav-stacked" id="first-region">
+    <div id="first-region">
 
     </div>
 

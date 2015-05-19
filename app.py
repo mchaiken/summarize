@@ -39,7 +39,7 @@ def add(url, title):
 
 @app.route("/saved/<url>")
 def saved(url):
-    return url
+    return render_template("saved.html",url=url)
     
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
@@ -125,6 +125,10 @@ def link(id = None):
 @app.route("/settings", methods=["GET","POST"])
 def settings():
     return render_template("settings.html", settings=True)
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     app.debug = True
