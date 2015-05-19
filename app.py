@@ -37,6 +37,11 @@ def add(url, title):
     else:
         message = ("You must log in ")
 
+@app.route("/saved/<url>")
+def saved(url):
+    return url
+    
+
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
 
