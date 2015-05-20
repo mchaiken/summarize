@@ -8,6 +8,7 @@ from dbactions import *
 import urllib
 import unicodedata
 import requests
+from functools import wraps
 app = Flask(__name__)
 
 
@@ -17,8 +18,9 @@ def authenticate(f):
         if 'user' in session:
             return f(*args)
         else:
+            flash("You must be logged in to see this page")
             session['next'] = f.__name__
-            return redirect( url_for('home') )
+            return redirect( url_for('index') )
     return inner
 
 @app.route("/", methods=["GET", "POST"])
