@@ -16,6 +16,15 @@ a {
   color: #3A546B;
   text-decoration: none;
 }
+
+.panel-heading {
+    cursor: pointer;
+}
+
+.glyphicon {
+    padding-right: 10px;
+
+}
 </style>
 {%endblock%}
 
@@ -24,21 +33,31 @@ a {
 {% include "nav-login.html" %}
 
 <script type="text/template" id="link-template">
-  <div class="panel-heading" role="tab" id="heading-<%=url%">
+  <div class="panel-heading" role="tab" id="heading-<%=url%>">
     <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="accordion" href="#collapse-<%=url%>" aria-expanded="true" aria-controls="collapse-<%=url%>">
-	<!-- <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>-->
-	<%=title%>, <%=url%>, <%=date%> </a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=url%>" aria-expanded="false" aria-controls="collapse-<%=url%>">
+      	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><%=title%>, <%=url%>, <%=date%> </a>
     </h4>
   </div>
-<!--
-  <div id="collapse-<%url%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-<%=url%>">
-    <div class="panel-body">
-      /saved/<%=url%>
+
+
+  <div id="collapse-<%=url%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=url%>">
+  <div class="panel-body">
+      <a class="btn btn-default" href="/saved/<%=url%>" role="button"><%=url%></a>
     </div>
-  </div>
--->
+ </div>
+
 </script>
+<!--
+  
+//<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+//  <div id="collapse-<%url%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-<%=url%>">
+  //  <div class="panel-body">
+     // /saved/<%=url%>
+   // </div>
+ // </div>
+-->
+
 
 <div class="pure-g">
   <div class="pure-u-1-12"></div>
@@ -46,24 +65,26 @@ a {
     <h1>Yay the files</h1>
 
     <div id="first-region">
-
     </div>
 
 
 
-    <div id="second-region" class="nav nav-pills nav-stacked">
-  
-</div>
+    <div id="second-region">
     
+ 
+
+    </div>
   
 
   </div>
   <div class="pure-u-1-12"></div>
 </div>
-  
-
+ 
+ 
 {%endblock%}
+
 
 {%block script%}
 <script src="static/js/home.js"></script>
+
 {% endblock %}
