@@ -25,7 +25,10 @@ def auth(page):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html",home=True)
+    if "user" in session:
+        return render_template("home.html")
+    else:
+        return render_template("index.html",home=True)
 
 @app.route("/add/<url>/<title>")
 def add(url, title):
@@ -75,12 +78,11 @@ def register():
         registered = register_user(request.form["fname"],request.form["lname"],request.form["email"],request.form["passwd"])
         print registered
         if registered:
-            flash("You have been registered! Login!", "success")
-            return redirect("/login")
+            session["user"]=request.form["email"]
+            flash("You've successfully registered!","success")
+            return redirect("/")
         else:
             flash("That email is already registered!", "danger")
-
-
     return render_template("register.html",register=True)
 
 @app.route("/login", methods=["GET","POST"])
@@ -93,6 +95,7 @@ def login():
         else:
             flash("Invalid Login", "danger")
             print "Login Failed"
+            return redirect("/")
         
     return render_template("login.html", login=True)
 
@@ -122,6 +125,7 @@ def settings():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
+    session.pop("user")
     return redirect(url_for("index"))
 
 if __name__ == "__main__":
