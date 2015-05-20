@@ -29,6 +29,7 @@ def index():
 
 @app.route("/add/<url>/<title>")
 def add(url, title):
+    from datetime import date
     if "user" in session:
         today = date.today()
         date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
@@ -36,6 +37,7 @@ def add(url, title):
         message = ("Your article has been saved")
     else:
         message = ("You must log in ")
+    return redirect("/home")
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
 def summarize(url):
@@ -55,7 +57,7 @@ def summarize(url):
         print paragraphs
         title = text[1]
         add_scrape(old_url, paragraphs,title)
-    return render_template("summary.html",paragraphs=paragraphs, url=url,title = title)
+    return render_template("summary.html",paragraphs=paragraphs, url=old_url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
 def about():

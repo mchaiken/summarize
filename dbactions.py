@@ -9,7 +9,7 @@ db = conn["summarize"]
 def register_user(fname,lname,email,passwd):
     if not user_exists(email):
         print "trying to register"
-        db.summarize.insert({"fname":fname , "lname":lname,"email":email,"passwd":passwd, "folders":[]})
+        db.summarize.insert({"fname":fname , "lname":lname,"email":email,"passwd":passwd, "folders":[],"urls":[]})
         return True
     return False
 
@@ -35,8 +35,12 @@ def authenticate(email, password):
 
 def saved_page(email,title,url,date):
     user = db.summarize.find_one({'email':email})
-    folder = user["folder"]
-    folder.append((url,date))
+    folder = user["folders"]
+    folder.append( (url,title,date) )
+    urls = user["urls"]
+    urls.append(url)
+    db.summarize.update({"email":email},{"$set":{"folders":folder,"urls":urls}})
+    
     
 def has_url(url):
     check = None
