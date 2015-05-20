@@ -61,7 +61,10 @@ def summarize(url):
 
 @app.route("/about", methods=["GET","POST"])
 def about():
-    return render_template("about.html",about=True)
+    if "user" in session:
+        return render_template("about.html",about=True,login=True)
+    else:
+        return render_template("about.html",about=True,login=False)
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -92,6 +95,7 @@ def login():
     return render_template("login.html", login=True)
 
 @app.route("/home", methods=["GET","POST"])
+@authenticate
 def home():
     return render_template("home.html", home=True)
 
@@ -112,6 +116,7 @@ def link(id = None):
     return json.dumps({'result':x})
 
 @app.route("/settings", methods=["GET","POST"])
+@authenticate
 def settings():
     return render_template("settings.html", settings=True)
 
