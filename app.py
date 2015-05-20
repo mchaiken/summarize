@@ -16,7 +16,7 @@ def auth(page):
     def decorate(f):
         @wraps(f)
         def inner(*args):
-            if 'logged_in' not in session:
+            if 'user' not in session:
                 flash("You must be logged in to see this page")
                 return redirect('/')
             return f(*args)
