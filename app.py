@@ -11,17 +11,15 @@ import requests
 app = Flask(__name__)
 
 
-
-def auth(page):
-    def decorate(f):
-        @wraps(f)
-        def inner(*args):
-            if 'user' not in session:
-                flash("You must be logged in to see this page")
-                return redirect('/')
+def authenticate(f):
+    @wraps(f)
+    def inner(*args):
+        if 'user' in session:
             return f(*args)
-        return inner
-    return decorate
+        else:
+            session['next'] = f.__name__
+            return redirect( url_for('home') )
+    return inner
 
 @app.route("/", methods=["GET", "POST"])
 def index():
