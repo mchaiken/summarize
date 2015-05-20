@@ -36,12 +36,16 @@ def authenticate(email, password):
 def saved_page(email,title,url,date):
     user = db.summarize.find_one({'email':email})
     folder = user["folders"]
-    folder.append( (url,title,date) )
     urls = user["urls"]
-    urls.append(url)
-    db.summarize.update({"email":email},{"$set":{"folders":folder,"urls":urls}})
-    
-    
+    if url not in urls:
+        folder.append( (url,title,date) )
+        urls = user["urls"]
+        urls.append(url)
+        db.summarize.update({"email":email},{"$set":{"folders":folder,"urls":urls}})
+        return "Your URL has been successfully saved!"
+    else:
+        return "You've already saved this url!"
+
 def has_url(url):
     check = None
     check = db.urls.find_one({'url':url})

@@ -81,11 +81,17 @@ body {
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-	
-	<li class="btn btn-info">
-	<a href="/add/{{url}}/{{title}}">Save Summary</a></li>
+          {% if loggedIn %}
+          
+            <li class="btn btn-info">
+            <a  href="/add/{{url}}/{{title}}">Save Summary</a></li>
+            {%else %}
+            <li class="btn btn-info">
+                <a  target="_blank" href = "/">Login</a></li>
+            <li><br></li>
+               <li class="btn btn-info">  <a target="_blank" href="/register">Create an account to save your summaries</a></li>
 
-
+        {% endif %}
       </ul>
     </div>
   </div>
