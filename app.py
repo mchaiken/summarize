@@ -12,7 +12,7 @@ from functools import wraps
 app = Flask(__name__)
 
 
-def authenticate(f):
+def auth(f):
     @wraps(f)
     def inner(*args):
         if 'user' in session:
@@ -40,7 +40,7 @@ def add(url, title):
         message =  saved_page(session["user"],title,url,date)
     else:
         return redirect("/")
-    return render_template("saved_success.html",message=)
+    return render_template("saved_success.html",message="")
 
 @app.route("/saved/<url>")
 def saved(url):
@@ -104,7 +104,7 @@ def login():
     return render_template("login.html", login=True)
 
 @app.route("/home", methods=["GET","POST"])
-@authenticate
+@auth
 def home():
     return render_template("home.html", home=True)
 
@@ -125,7 +125,7 @@ def link(id = None):
     return json.dumps({'result':x})
 
 @app.route("/settings", methods=["GET","POST"])
-@authenticate
+@auth
 def settings():
     return render_template("settings.html", settings=True)
 
