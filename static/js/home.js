@@ -44,11 +44,20 @@ App.LinksView = Marionette.CollectionView.extend({
     }
 });
 
-var Link = Backbone.Model.extend();
+var Link = Backbone.Model.extend({ url:"/link",
+                                 idAttribute:'_id'});
 var Links = Backbone.Collection.extend({
-    model:Link,
-    comparator:"name"
-});
+                                       model:Link,
+                                       comparator:"name",
+                                       url:"/links",
+                                       initialize:function(){
+                                       this.fetch(function(d){
+                                                  console.log(d);
+                                                  this.render();
+                                                  });
+                                       }
+                                       });
+
 
 var l1 = new Link({title:"first article",date:"11/07/97",url:"meow"});
 var l2 = new Link({title:"second article",date:"11/08/98",url:"woof"});

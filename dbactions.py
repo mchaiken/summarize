@@ -20,7 +20,7 @@ def user_exists(email):
         return True
     return False
 
-def authenticate(email, password):
+def authenticate_login(email, password):
     user = db.summarize.find_one( { 'email' : email },{"_id":False})
     if user == None:
         return None
@@ -56,6 +56,8 @@ def add_scrape(url,list,title):
         db.urls.insert({"url":url,"list":list,"title":title})
 
 def get_user_urls(email):
-    return db.summarize.find_one({'email':email})["folders"]
+    x= db.summarize.find_one({'email':email})["folders"]
+    print x
+    return x
 
 

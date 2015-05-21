@@ -8,6 +8,7 @@ from dbactions import *
 import urllib
 import unicodedata
 import requests
+import json
 from functools import wraps
 app = Flask(__name__)
 
@@ -30,17 +31,17 @@ def index():
     else:
         return render_template("index.html",home=True)
 
-@app.route("/add/<url>/<title>")
+@app.route("/save/<url>/<title>")
 def add(url, title):
     from datetime import date
     if "user" in session:
         today = date.today()
         date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
-        saved_page(session["user"],title,url,date)
+        #saved_page(session["user"],title,url,date)
         message =  saved_page(session["user"],title,url,date)
     else:
         return redirect("/")
-    return render_template("saved_success.html",message=)
+    return render_template("saved_success.html",message=message)
 
 @app.route("/saved/<url>")
 def saved(url):
@@ -92,7 +93,7 @@ def register():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "POST":
-        user  = authenticate(request.form["email"],request.form["passwd"])
+        user  = authenticate_login(request.form["email"],request.form["passwd"])
         if not user == None:
             session["user"]= user
             return redirect("/")
@@ -111,8 +112,16 @@ def home():
 
 @app.route("/links")
 def links():
-    links = [x  for x in get_user_urls(session["user"])]
-    return json.dumps(urls)
+    print "called"
+    links = []
+    #print get_user_urls(session["user"])
+    i=0
+    for link  in get_user_urls(session["user"]):
+        links.append({"url":link[0].replace("%9l","/"), "title":link[1],"date":link[2],"_id":i});
+        i+=1
+    #links = [x  for x in get_user_urls(session["user"])]
+    print links
+    return json.dumps(links)
 
 @app.route ("/link")
 def link(id = None):
