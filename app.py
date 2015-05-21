@@ -37,10 +37,10 @@ def add(url, title):
         today = date.today()
         date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
         saved_page(session["user"],title,url,date)
-        message = ("Your article has been saved")
+        message =  saved_page(session["user"],title,url,date)
     else:
-        message = ("You must log in ")
-    return redirect("/home")
+        return redirect("/")
+    return render_template("saved_success.html",message=)
 
 @app.route("/saved/<url>")
 def saved(url):
@@ -59,13 +59,14 @@ def summarize(url):
         print url
         url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
         url = url.replace("%9l","/")
+        url = url.replace("%9s"," ")
         print url
         text = get_text(url)
         paragraphs = get_paragraph_points(text[0])
         print paragraphs
         title = text[1]
         add_scrape(old_url, paragraphs,title)
-    return render_template("summary.html",paragraphs=paragraphs, url=old_url,title = title)
+    return render_template("summary.html",loggedIn = ("user" in session), paragraphs=paragraphs, url=old_url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
 def about():
