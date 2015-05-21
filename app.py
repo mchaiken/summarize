@@ -59,6 +59,7 @@ def summarize(url):
         print url
         url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
         url = url.replace("%9l","/")
+        url = url.replace("%9s"," ")
         print url
         text = get_text(url)
         paragraphs = get_paragraph_points(text[0])
