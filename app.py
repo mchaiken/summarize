@@ -8,20 +8,20 @@ from dbactions import *
 import urllib
 import unicodedata
 import requests
+from functools import wraps
 app = Flask(__name__)
 
 
-
-def auth(page):
-    def decorate(f):
-        @wraps(f)
-        def inner(*args):
-            if 'user' not in session:
-                flash("You must be logged in to see this page")
-                return redirect('/')
+def authenticate(f):
+    @wraps(f)
+    def inner(*args):
+        if 'user' in session:
             return f(*args)
-        return inner
-    return decorate
+        else:
+            flash("You must be logged in to see this page")
+            session['next'] = f.__name__
+            return redirect( url_for('index') )
+    return inner
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -70,7 +70,10 @@ def summarize(url):
 
 @app.route("/about", methods=["GET","POST"])
 def about():
-    return render_template("about.html",about=True)
+    if "user" in session:
+        return render_template("about.html",about=True,login=True)
+    else:
+        return render_template("about.html",about=True,login=False)
 
 @app.route("/register", methods=["GET","POST"])
 def register():
@@ -101,6 +104,7 @@ def login():
     return render_template("login.html", login=True)
 
 @app.route("/home", methods=["GET","POST"])
+@authenticate
 def home():
     return render_template("home.html", home=True)
 
@@ -121,6 +125,7 @@ def link(id = None):
     return json.dumps({'result':x})
 
 @app.route("/settings", methods=["GET","POST"])
+@authenticate
 def settings():
     return render_template("settings.html", settings=True)
 
