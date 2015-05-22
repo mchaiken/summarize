@@ -27,7 +27,7 @@ def auth(f):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if "user" in session:
-        return render_template("home.html")
+        return render_template("home.html",has_saved = (len(get_user_urls(session["user"])) > 0))
     else:
         return render_template("index.html",home=True)
 
@@ -103,11 +103,6 @@ def login():
             return redirect("/")
         
     return render_template("login.html", login=True)
-
-@app.route("/home", methods=["GET","POST"])
-@auth
-def home():
-    return render_template("home.html", home=True)
 
 
 @app.route("/links")
