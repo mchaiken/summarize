@@ -10,8 +10,8 @@ App.addRegions({
 App.on("start", function(){
     console.log("STARTING");
 
-    var linkView = new App.LinkView({model:l1});
-    console.log(linkView);
+    //var linkView = new App.LinkView({model:l1});
+    //console.log(linkView);
     //App.secondRegion.show(linkView);
 
     var linksView = new App.LinksView({collection:c});
@@ -59,10 +59,10 @@ var Links = Backbone.Collection.extend({
                                        });
 
 
-var l1 = new Link({title:"first article",date:"11/07/97",url:"meow"});
-var l2 = new Link({title:"second article",date:"11/08/98",url:"woof"});
+//var l1 = new Link({title:"first article",date:"11/07/97",url:"meow"});
+//var l2 = new Link({title:"second article",date:"11/08/98",url:"woof"});
 
-var c = new Links([l1,l2]);
+var c = new Links();
 
 App.start();
 /*

@@ -33,15 +33,15 @@ a {
 {% include "nav-login.html" %}
 
 <script type="text/template" id="link-template">
-  <div class="panel-heading" role="tab" id="heading-<%=url%>">
+  <div class="panel-heading" role="tab" id="heading-<%=url_display%>">
     <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=url%>" aria-expanded="false" aria-controls="collapse-<%=url%>">
-      	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><%=title%>, <%=url%>, <%=date%> </a>
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%=_id%>" aria-expanded="false" aria-controls="collapse-<%=_id%>">
+      	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><%=title%>, <%=url_display%>, <%=date%> </a>
     </h4>
   </div>
 
 
-  <div id="collapse-<%=url%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=url%>">
+  <div id="collapse-<%=_id%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%=_id%>">
   <div class="panel-body">
       <a class="btn btn-default" href="/saved/<%=url%>" role="button"><%=url%></a>
     </div>
