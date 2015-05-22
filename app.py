@@ -136,6 +136,15 @@ def link(id = None):
 @app.route("/settings", methods=["GET","POST"])
 @auth
 def settings():
+    if request.method == "POST":
+        settings = change_settings(request.form["fname"],request.form["lname"],request.form["email"],request.form["passwd"],request.form["new_passwd"])
+        print settings
+        if settings:
+            session["user"]=request.form["email"]
+            flash("You've successfully changed your password!","success")
+            return redirect("/")
+        else:
+            flash("That email is already registered!", "danger")
     return render_template("settings.html", settings=True)
 
 @app.route("/logout", methods=["GET", "POST"])

@@ -13,6 +13,18 @@ def register_user(fname,lname,email,passwd):
         return True
     return False
 
+def change_settings(fname,lname,email,passwd,new_passwd):
+    if not user_exists(email):
+        print "trying to change settings"
+        return False
+    user = db.summarize.find_one({'email':email})
+    if user['passwd'] == passwd:
+        db.summarize.update({"email":email},{"$set":{"passwd":new_passwd}})
+        return True
+    else:
+        print "original pass"
+        return False
+
 def user_exists(email):
     check = None
     check = db.summarize.find_one({'email':email})

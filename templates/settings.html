@@ -40,16 +40,22 @@
                         <div class="col-sm-10">
                             <input type="password" required class="form-control" name="passwd" id="passwd" placeholder="Password">
                                 </div>
-                    </div>
-                    <div id= "conf-div"class="form-group">
-                        <label for="inputPassword4" class="col-sm-2 control-label" >Retype Password</label>
+		    </div>
+                    <div class="form-group">
+                        <label for="inputPassword4" class="col-sm-2 control-label">New Password</label>
                         <div class="col-sm-10">
-                            <input type="password" required class="form-control" name= "passwd-conf" id="passwd-conf" placeholder="Password" onkeyup="validate()">
+                            <input type="password" required class="form-control" name="new_passwd" id="new_passwd" placeholder="New Password">
+                                </div>
+                    </div>
+                    <div id="conf-div" class="form-group">
+                        <label for="inputPassword5" class="col-sm-2 control-label">Retype New Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" required class="form-control" name="new_passwd-conf" id="new_passwd-conf" placeholder="New Password" onkeyup="validate()">
                                 </div>
                     </div>
                                        <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary" id= "register" disabled= "disabled">Update</button>
+                            <button type="submit" class="btn btn-primary" id="settings" disabled="disabled">Update</button>
                         </div>
                     </div>
                 </form>
@@ -61,19 +67,19 @@
         </div>
         <script>
             function validate(){
-                var equ = $("#passwd").val() === $("#passwd-conf").val();
-                console.log($("#passwd").val())
+                var equ = $("#new_passwd").val() === $("#new_passwd-conf").val();
+                console.log($("#new_passwd").val())
                 console.log(equ)
                 if (equ){
                     $("#conf-div").removeClass("has-error")
                     $("#conf-div").addClass("has-success")
-                    $("#register").prop("disabled",false);
+                    $("#settings").prop("disabled",false);
                 }
                 else{
                     
                     $("#conf-div").addClass("has-error")
                     $("#conf-div").removeClass("has-success")
-                     $("#register").prop("disabled",true);
+                     $("#settings").prop("disabled",true);
                     
                 }
                 
