@@ -38,7 +38,7 @@ def add(url, title):
         today = date.today()
         date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
         #saved_page(session["user"],title,url,date)
-        message =  saved_page(session["user"],url,title,url,date)
+        message =  saved_page(session["user"],url,title,date)
     else:
         return redirect("/")
     return render_template("saved_success.html",message=message)
@@ -57,7 +57,8 @@ def saved(url,id):
     res = get_user_info(session["user"],id)
     article = has_url(url)
     old_url = url
-    
+    paragraphs=[]
+    title =""
     if article:
         paragraphs = article["list"]
         title = article["title"]
@@ -129,6 +130,7 @@ def links():
     #print get_user_urls(session["user"])
     i=0
     for link  in get_user_urls(session["user"]):
+        print link[0][0]
         links.append({"url_display":link[0].replace("%9l","/"),"url":link[0], "title":link[1],"date":link[2],"_id":i});
         i+=1
     #links = [x  for x in get_user_urls(session["user"])]
