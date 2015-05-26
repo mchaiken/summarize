@@ -69,7 +69,7 @@ def remove_page(email,title,url,date):
     urls = user["urls"]
     print folders
     folders.pop(folders.index([url,title,date]))
-    urls.pop(url)
+    urls.pop(urls.index(url))
     db.summarize.update({"email":email},{"$set":{"folders":folders,"urls":urls}})
 
 def has_url(url):

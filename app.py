@@ -131,7 +131,7 @@ def links():
     i=0
     for link  in get_user_urls(session["user"]):
         print link[0][0]
-        links.append({"url_display":link[0].replace("%9l","/"),"url":link[0], "title":link[1],"date":link[2],"_id":i});
+        links.append({"url_display":link[1].replace("%9l","/"),"url":link[1], "title":link[0],"date":link[2],"_id":i});
         i+=1
     #links = [x  for x in get_user_urls(session["user"])]
     print links
