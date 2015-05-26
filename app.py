@@ -38,14 +38,31 @@ def add(url, title):
         today = date.today()
         date = str(today.month) + "/" + str(today.day) +"/" +str(today.year)
         #saved_page(session["user"],title,url,date)
-        message =  saved_page(session["user"],title,url,date)
+        message =  saved_page(session["user"],url,title,url,date)
     else:
         return redirect("/")
     return render_template("saved_success.html",message=message)
 
-@app.route("/saved/<url>")
-def saved(url):
-    return render_template("saved.html",url=url)
+@app.route("/remove/<url>/<title>/<date>")
+def remove(url, title, date):
+
+    if "user" in session:
+        remove_page(session["user"],url,title,date.replace("%9l","/"))
+        flash ("Page successfully removed","success")
+    return redirect("/")
+
+
+@app.route("/saved/<id>/<url>/")
+def saved(url,id):
+    res = get_user_info(session["user"],id)
+    article = has_url(url)
+    old_url = url
+    
+    if article:
+        paragraphs = article["list"]
+        title = article["title"]
+        print "Retrieved"
+    return render_template("saved.html",url=url,date=res[2].replace("/","%9l"), paragraphs=paragraphs,title=title )
     
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
