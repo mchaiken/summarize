@@ -23,7 +23,7 @@ def auth(f):
             session['next'] = f.__name__
             return redirect( url_for('index') )
     return inner
-
+@app.route("/home",methods=["GET","POST"])
 @app.route("/", methods=["GET", "POST"])
 def index():
     if "user" in session:
