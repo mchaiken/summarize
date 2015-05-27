@@ -132,9 +132,9 @@ def findNMostCommon(dict,n):
 
 def get_terms(key_words):
     terms= []
-    i=0
     for word in key_words:
-        terms[i]=(word[1],wikipedia.summary(word[1]))
+        terms.append(("<a href='"+wikipedia.page(word).url+"'>"+word+"</a>",wikipedia.summary(word)+"..."))
+    return terms
 
 def get_text(url):
     try:
@@ -160,4 +160,4 @@ def get_text(url):
     except:
         return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
 
-print wikipedia.summary("containment")
+print get_terms(get_key_words(open("communist.txt").read()))
