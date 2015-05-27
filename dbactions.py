@@ -77,9 +77,9 @@ def has_url(url):
     check = db.urls.find_one({'url':url})
     return check
 
-def add_scrape(url,list,title):
+def add_scrape(url,list,title,key_words):
     if not(has_url(url)):
-        db.urls.insert({"url":url,"list":list,"title":title})
+        db.urls.insert({"url":url,"list":list,"title":title,"key_words":key_words})
 
 def get_user_urls(email):
     x= db.summarize.find_one({'email':email})["folders"]

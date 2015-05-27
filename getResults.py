@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from bs4.diagnose import diagnose
 import requests
+import wikipedia
 import re, operator
 from dbactions import add_scrape
 
@@ -82,10 +83,10 @@ def get_key_phrases(text):
     #print c
     return c
 
-def get_paragraph_points(paras):
+def get_paragraph_points(paras,key_words):
     paradict={}
     #key_phrases= get_key_phrases(text)
-    key_words= get_key_words(" ".join(paras))
+    #key_words= get_key_words(" ".join(paras))
     print key_words
     pos=0
     paralist= []
@@ -155,4 +156,4 @@ def get_text(url):
     except:
         return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
 
-#get_text("http://www.nytimes.com/2015/05/08/us/nsa-phone-records-collection-ruled-illegal-by-appeals-court.html?hp&action=click&pgtype=Homepage&module=first-column-region&region=top-news&WT.nav=top-news&_r=0")
+print wikipedia.summary("Barak Obama")

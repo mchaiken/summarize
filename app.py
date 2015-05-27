@@ -63,7 +63,7 @@ def saved(url,id):
         paragraphs = article["list"]
         title = article["title"]
         print "Retrieved"
-    return render_template("saved.html",url=url,date=res[2].replace("/","%9l"), paragraphs=paragraphs,title=title )
+    return render_template("saved.html",url=url,date=res[2].replace("/","%9l"), paragraphs=paragraphs,title=title, key_words=key_words)
     
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
@@ -81,10 +81,11 @@ def summarize(url):
         url = url.replace("%9s"," ")
         print url
         text = get_text(url)
-        paragraphs = get_paragraph_points(text[0])
+        key_words = get_key_words(" ".joing(text[0]))
+        paragraphs = get_paragraph_points(text[0], key_words)
         print paragraphs
         title = text[1]
-        add_scrape(old_url, paragraphs,title)
+        add_scrape(old_url, paragraphs,title,key_words)
     return render_template("summary.html",loggedIn = ("user" in session), paragraphs=paragraphs, url=old_url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
