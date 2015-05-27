@@ -156,4 +156,4 @@ def get_text(url):
     except:
         return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
 
-print wikipedia.summary("Barak Obama")
+print wikipedia.summary("containment")
