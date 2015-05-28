@@ -37,9 +37,14 @@
              <p  class="para {{para[2]}}"> {{para[1]}} </p>
              {%endfor%}
          </div>
-         
+         <h3>Key Terms</h3>
+         {%for word in key_words %}
+         <b><a href='{{word[0]}}'>{{word[1]}}</a></b> - {{word[2]}}<br>
+         {%endfor%}
      </div>
-     <div class="pure-u-1-12"></div>
+     <div class="pure-u-1-12">
+    
+     </div>
 </div>
 
 {%endblock%}

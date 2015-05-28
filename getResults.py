@@ -31,8 +31,9 @@ def findWho(text, content):
     names = {}
     regex = "([A-Z]\w*|Mr.|Mrs.|Ms.|Dr.|Sir.)\s([A-Z]\w*\s?)+"
     for match in re.finditer(regex, text):
-        addToDict(match.group(),names)
-    return findMostCommon(names, content)
+        addToDict(match.group().strip(" .!?;:'\"\\"),names)
+    return names
+#return findMostCommon(names, content)
 
 
 
@@ -83,10 +84,10 @@ def get_key_phrases(text):
     #print c
     return c
 
-def get_paragraph_points(paras,key_words):
+def get_paragraph_points(paras):
     paradict={}
     #key_phrases= get_key_phrases(text)
-    #key_words= get_key_words(" ".join(paras))
+    key_words= get_key_words(" ".join(paras))
     print key_words
     pos=0
     paralist= []
@@ -140,27 +141,30 @@ def get_tuples(key_words):
 def get_terms(key_words):
     terms= []
     topTen= get_tuples(key_words)
+    #topTen=key_words
     i=0
     added=0
-    while added<10:
+    while added<10 and i<len(topTen):
         print added
-        added+=1
+        word=topTen[i][1]
         try:
+            if(wikipedia.page(word).title == word):
+                print i
+                print wikipedia.summary(topTen[i][1])
+                
+                terms.append((wikipedia.page(word).url,word," ".join(wikipedia.summary(word).split(' ')[:50])+"..."))
+                added+=1
+        except (wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError):
+            print "ERROR"
             print i
-            print wikipedia.summary(topTen[i][1])
-            word=topTen[i][1]
-            terms.append(("<a href='"+wikipedia.page(word).url+"'>"+word+"</a>",wikipedia.summary(word).split(' ')[:25]+"..."))
-        
-        except:
-            print i
-            added-=1
+
             print "no data"
         i+=1
 
     return terms
 
 def get_text(url):
-    try:
+    #try:
         data=""
         p=requests.get(url).content
         #print p
@@ -178,9 +182,9 @@ def get_text(url):
             text.append(str(paragraph.text.encode('ascii', 'ignore')))
         #print text
         print title
-        add_scrape(url,(text,title),title)
+#add_scrape(url,(text,title),title,key_words)
         return (text,title)
-    except:
-        return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
-
-print get_terms(get_key_words(open("communist.txt").read()))
+        #except:
+#return(["we wish we  had a summary to show you :/"],"Sorry this site couldn't be scraped")
+#r=open("communist.txt").read()
+#print get_terms(findWho(r,""))

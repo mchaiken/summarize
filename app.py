@@ -62,6 +62,7 @@ def saved(url,id):
     if article:
         paragraphs = article["list"]
         title = article["title"]
+        key_words=article["key_words"]
         print "Retrieved"
     return render_template("saved.html",url=url,date=res[2].replace("/","%9l"), paragraphs=paragraphs,title=title, key_words=key_words)
     
@@ -81,8 +82,9 @@ def summarize(url):
         url = url.replace("%9s"," ")
         print url
         text = get_text(url)
-        key_words = get_key_words(" ".joing(text[0]))
-        paragraphs = get_paragraph_points(text[0], key_words)
+        print text[0][0]
+        key_words = get_terms(findWho(" ".join(text[0]),""))
+        paragraphs = get_paragraph_points(text[0])
         print paragraphs
         title = text[1]
         add_scrape(old_url, paragraphs,title,key_words)
