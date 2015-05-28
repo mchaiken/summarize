@@ -129,11 +129,34 @@ def findNMostCommon(dict,n):
             print x + "\n"
 
 #findNMostCommon(get_paragraph_points(open("communist.txt",'r').read()), 3)
+def get_tuples(key_words):
+    l=[]
+    for word in key_words:
+        l.append((key_words[word],word))
+    return sorted(l)[::-1]
+
+
 
 def get_terms(key_words):
     terms= []
-    for word in key_words:
-        terms.append(("<a href='"+wikipedia.page(word).url+"'>"+word+"</a>",wikipedia.summary(word)+"..."))
+    topTen= get_tuples(key_words)
+    i=0
+    added=0
+    while added<10:
+        print added
+        added+=1
+        try:
+            print i
+            print wikipedia.summary(topTen[i][1])
+            word=topTen[i][1]
+            terms.append(("<a href='"+wikipedia.page(word).url+"'>"+word+"</a>",wikipedia.summary(word).split(' ')[:25]+"..."))
+        
+        except:
+            print i
+            added-=1
+            print "no data"
+        i+=1
+
     return terms
 
 def get_text(url):
