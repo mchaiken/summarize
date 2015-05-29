@@ -44,13 +44,18 @@ def authenticate_login(email, password):
     else:
         
         return None
+    
 def get_user_info(email,id):
     user = db.summarize.find_one({'email':email})
     folder = user["folders"]
     id= int(id)
     return folder[id]
 
-
+def get_settings_info(email):
+    user = db.summarize.find_one({'email':email})
+    info = [user["fname"], user["lname"], user["email"], user["passwd"]]
+    return info
+    
 def saved_page(email,title,url,date):
     user = db.summarize.find_one({'email':email})
     folder = user["folders"]
@@ -63,6 +68,7 @@ def saved_page(email,title,url,date):
         return "Your URL has been successfully saved!"
     else:
         return "You've already saved this url!"
+        
 def remove_page(email,title,url,date):
     user = db.summarize.find_one({'email':email})
     folders = user["folders"]

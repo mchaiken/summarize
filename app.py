@@ -153,6 +153,9 @@ def link(id = None):
 @app.route("/settings", methods=["GET","POST"])
 @auth
 def settings():
+    if request.method == "GET":
+        info = get_settings_info(session["user"])
+        return render_template("settings.html", settings=True, fname=info[0], lname=info[1], email=info[2], passwd=info[3])
     if request.method == "POST":
         settings = change_settings(request.form["fname"],request.form["lname"],request.form["email"],request.form["passwd"],request.form["new_passwd"])
         print settings
