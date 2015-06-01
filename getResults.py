@@ -140,6 +140,7 @@ def get_tuples(key_words):
 
 def get_terms(key_words):
     terms= []
+
     topTen= get_tuples(key_words)
     #topTen=key_words
     i=0
@@ -160,6 +161,7 @@ def get_terms(key_words):
 
             print "no data"
         i+=1
+
 
     return terms
 
