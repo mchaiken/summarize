@@ -82,7 +82,7 @@ def summarize(url):
         url = url.replace("%9s"," ")
         print url
         text = get_text(url)
-        print text[0][0]
+        #print text[0][0]
         key_words = get_terms(findWho(" ".join(text[0]),""))
         paragraphs = get_paragraph_points(text[0])
         print paragraphs
