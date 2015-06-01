@@ -133,7 +133,11 @@ def findNMostCommon(dict,n):
 def get_terms(key_words):
     terms= []
     for word in key_words:
-        terms.append(("<a href='"+wikipedia.page(word).url+"'>"+word+"</a>",wikipedia.summary(word)+"..."))
+        try:
+            terms.append((word,wikipedia.summary(word)+"..."))
+
+        except:
+            pass
     return terms
 
 def get_text(url):
