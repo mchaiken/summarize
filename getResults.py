@@ -29,9 +29,10 @@ def findMostCommon(dict, content):
 
 def findWho(text, content):
     names = {}
-    regex = "([A-Z]\w*)\s([A-Z]\S*\?)+"
+    regex = "([A-Z]\w*)((\s[A-Z][a-z]?[a-z]?\.\s)|(\s?[A-Z]([a-z]|-)+))+"
     for match in re.finditer(regex, text):
-        addToDict(match.group().strip(" .!?;:'\"\\"),names)
+        addToDict(match.group().strip(" .!?;:'\"\\").strip(" .!?;:'\"\\"),names)
+    print "NAMES "+str(names)
     return names
 #return findMostCommon(names, content)
 
@@ -135,6 +136,9 @@ def get_tuples(key_words):
     for word in key_words:
         l.append((key_words[word],word))
     return sorted(l)[::-1]
+
+
+
 def wiki_title_match(word):
     title = wikipedia.page(word).title
     if (title == word):
@@ -162,11 +166,11 @@ def get_terms(key_words):
         try:
             if(wiki_title_match(word)):
                 print i
-                print wikipedia.summary(topTen[i][1])
+                #print wikipedia.summary(topTen[i][1])
                 
                 terms.append((wikipedia.page(word).url,word," ".join(wikipedia.summary(word).split(' ')[:50])+"..."))
                 added+=1
-        except (wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError):
+        except (wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError,wikipedia.exceptions.WikipediaException):
             print "ERROR"
             print i
 
