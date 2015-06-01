@@ -29,7 +29,7 @@ def findMostCommon(dict, content):
 
 def findWho(text, content):
     names = {}
-    regex = "([A-Z]\w*|Mr.|Mrs.|Ms.|Dr.|Sir.)\s([A-Z]\w*\s?)+"
+    regex = "([A-Z]\w*)\s([A-Z]\S*\?)+"
     for match in re.finditer(regex, text):
         addToDict(match.group().strip(" .!?;:'\"\\"),names)
     return names
@@ -135,7 +135,18 @@ def get_tuples(key_words):
     for word in key_words:
         l.append((key_words[word],word))
     return sorted(l)[::-1]
-
+def wiki_title_match(word):
+    title = wikipedia.page(word).title
+    if (title == word):
+        return True
+    else:
+        t= title.split(" ")
+        w= word.split(" ")
+        for x in t:
+            if x not in w:
+                return False
+        return True
+        
 
 
 def get_terms(key_words):
@@ -149,7 +160,7 @@ def get_terms(key_words):
         print added
         word=topTen[i][1]
         try:
-            if(wikipedia.page(word).title == word):
+            if(wiki_title_match(word)):
                 print i
                 print wikipedia.summary(topTen[i][1])
                 
