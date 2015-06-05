@@ -41,9 +41,22 @@
              {%endfor%}
          </div>
          <h3>Key Terms</h3>
-         {%for word in key_words %}
-         <b><a href='{{word[0]}}'>{{word[1]}}</a></b> - {{word[2]}}<br>
-         {%endfor%}
+         <div class="panel panel-default">
+             <div class="panel-heading" role="tab" id="headingTwo">
+                 <h4 class="panel-title">
+                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#key-terms" aria-expanded="false" aria-controls="collapseTwo">
+                         Key Terms
+                     </a>
+                 </h4>
+             </div>
+             <div id="key-terms" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                 <div class="panel-body">
+                     {%for word in key_words %}
+                     <b><a href='{{word[0]}}'>{{word[1]}}</a></b> - {{word[2]}}<br>
+                     {%endfor%}
+                 </div>
+             </div>
+         </div>
      </div>
      <div class="pure-u-1-12">
     

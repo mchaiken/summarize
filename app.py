@@ -74,6 +74,7 @@ def summarize(url):
     if check:
         paragraphs = check["list"]
         title = check["title"]
+        key_words=check["key_words"]
         print "Retrieved"
     else:
         print url
@@ -88,7 +89,7 @@ def summarize(url):
         print paragraphs
         title = text[1]
         add_scrape(old_url, paragraphs,title,key_words)
-    return render_template("summary.html",loggedIn = ("user" in session), paragraphs=paragraphs, url=old_url,title = title)
+    return render_template("summary.html",loggedIn = ("user" in session),key_words=key_words, paragraphs=paragraphs, url=old_url,title = title)
 
 @app.route("/about", methods=["GET","POST"])
 def about():
