@@ -19,7 +19,10 @@ def change_settings(fname,lname,email,passwd,new_passwd):
         return False
     user = db.summarize.find_one({'email':email})
     if user['passwd'] == passwd:
-        db.summarize.update({"email":email},{"$set":{"passwd":new_passwd}})
+        if new_passwd != "":
+            db.summarize.update({"email":email},{"$set":{"fname":fname,"lname":lname,"passwd":new_passwd}})
+        else:
+            db.summarize.update({"email":email},{"$set":{"fname":fname,"lname":lname}})
         return True
     else:
         print "original pass"

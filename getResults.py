@@ -29,9 +29,10 @@ def findMostCommon(dict, content):
 
 def findWho(text, content):
     names = {}
-    regex = "([A-Z]\w*|Mr.|Mrs.|Ms.|Dr.|Sir.)\s([A-Z]\w*\s?)+"
+    regex = "([A-Z]\w*)((\s[A-Z][a-z]?[a-z]?\.\s)|(\s?[A-Z]([a-z]|-)+))+"
     for match in re.finditer(regex, text):
-        addToDict(match.group().strip(" .!?;:'\"\\"),names)
+        addToDict(match.group().strip(" .!?;:'\"\\").strip(" .!?;:'\"\\"),names)
+    print "NAMES "+str(names)
     return names
 #return findMostCommon(names, content)
 
@@ -138,8 +139,23 @@ def get_tuples(key_words):
 
 
 
+def wiki_title_match(word):
+    title = wikipedia.page(word).title
+    if (title == word):
+        return True
+    else:
+        t= title.split(" ")
+        w= word.split(" ")
+        for x in t:
+            if x not in w:
+                return False
+        return True
+        
+
+
 def get_terms(key_words):
     terms= []
+
     topTen= get_tuples(key_words)
     #topTen=key_words
     i=0
@@ -148,18 +164,19 @@ def get_terms(key_words):
         print added
         word=topTen[i][1]
         try:
-            if(wikipedia.page(word).title == word):
+            if(wiki_title_match(word)):
                 print i
-                print wikipedia.summary(topTen[i][1])
+                #print wikipedia.summary(topTen[i][1])
                 
                 terms.append((wikipedia.page(word).url,word," ".join(wikipedia.summary(word).split(' ')[:50])+"..."))
                 added+=1
-        except (wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError):
+        except (wikipedia.exceptions.DisambiguationError, wikipedia.exceptions.PageError,wikipedia.exceptions.WikipediaException):
             print "ERROR"
             print i
 
             print "no data"
         i+=1
+
 
     return terms
 
