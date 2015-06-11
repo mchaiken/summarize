@@ -9,7 +9,7 @@
   	 <div class="pure-u-5-6">
         <form class="form-horizontal">
          <h1 id="title">{{title}}  </h1>
- 	<input type="text" class="form-control" name="title" id="newtitle" placeholder="Input New Summary Title">
+ 	<input type="text" class="form-control" name="newtitle" id="newtitle" placeholder="Input New Summary Title">
         <br>
         <a class="btn btn-info" href="#" onclick="edittitle()">Edit Title</a>
          <a class= "btn btn-danger" href="http://localhost:5000/remove/{{url}}/{{title}}/{{date}}">Remove Article</a>
@@ -67,6 +67,7 @@
 
 {%endblock%}
 {%block script %}
+<script data-main="scripts/main" src="scripts/require.js"></script>
 <script type="text/javascript">
   function edittitle(){
         var equ = $("#newtitle").val() === "";
