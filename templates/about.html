@@ -8,10 +8,31 @@
 {% endblock head %}
 
 {% block body %}
+
 {% if login %}
 {% include "nav-login.html"%}
 {% else%}
 {% include "nav-default.html" %}
 {% endif %}
+<center>
+<h1>About</h1>
+</center>
+<div class="container">
+A simple easy to use chrome extension that allows users to summarize articles and save their summaries for later reading. Useful for everything from studying to following the news.Just download the chrome extension, create an account and get started. Check out key terms and related wiki pages too. Everything you need to stay informed and save time in one convinient place
 
+<h4>Created by</h4>
+
+    Leslie Bresnahan<br>
+    Miranda Chaiken<br>
+    Anya Hargil
+
+<h5>Academic Support</h5>
+Mike Zamansky
+
+
+<center>
+    <h4> Special thanks to StuyCS </h4>
+</center>
+</div>
 {%endblock%}
+  
