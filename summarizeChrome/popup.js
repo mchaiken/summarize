@@ -10,7 +10,7 @@ while (url.indexOf("/") != -1){
     url=url.replace("/","%9l");
 }
 
-var win = popup("localhost:5000/summary/"+url);
+var win = popup("104.236.53.73/summary/"+url);
 //win.location.href= url;
 console.log(win)
 //win.location.onLoad = win.location.reload();
