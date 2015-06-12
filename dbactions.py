@@ -28,9 +28,9 @@ def change_settings(fname,lname,email,passwd,new_passwd):
         print "original pass"
         return False
 
-## def change_title(url, newtitle):
-##     db.urls.update({"url":url},{"$set":{"title":newtitle}})
-##     return
+def change_title(url, newtitle):
+    db.urls.update({"url":url},{"$set":{"title":newtitle}})
+    return
  
 def user_exists(email):
     check = None

@@ -11,8 +11,8 @@
          <h1 id="title">{{title}}  </h1>
  	<input type="text" class="form-control" name="newtitle" id="newtitle" placeholder="Input New Summary Title">
         <br>
-        <a class="btn btn-info" href="#" onclick="edittitle()">Edit Title</a>
-         <a class= "btn btn-danger" href="localhost:5000/remove/{{url}}/{{title}}/{{date}}">Remove Article</a>
+        <a class="btn btn-info" href="#" type="submit" onclick="edittitle()">Edit Title</a>
+         <a class= "btn btn-danger" href="104.236.53.73/remove/{{url}}/{{title}}/{{date}}">Remove Article</a>
          <div>
              <br><br><br>
             
@@ -67,7 +67,6 @@
 
 {%endblock%}
 {%block script %}
-<script data-main="scripts/main" src="scripts/require.js"></script>
 <script type="text/javascript">
   function edittitle(){
         var equ = $("#newtitle").val() === "";

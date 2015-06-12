@@ -53,12 +53,14 @@ def remove(url, title, date):
 
 
 @app.route("/saved/<id>/<url>/")
-def saved(url,id):
+def saved(url, id, methods=["GET","POST"]):
     ## if request.method == "POST":
     ##     newtitle = request.form["newtitle"]
+    ##     flash ("changed title", "success")
     ##     change_title(url, newtitle)
     ##     print newtitle
     ## else:
+    ##     flash("didn't work", "failure")
     res = get_user_info(session["user"],id)
     article = has_url(url)
     old_url = url
