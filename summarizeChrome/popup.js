@@ -7,7 +7,11 @@ function popup(url) {
 var url = window.location.href;
 
 while (url.indexOf("/") != -1){
-    url=url.replace("/","%9l");
+    url=url.replace("/","-9l");
+    q = url.indexOf("?")
+    if (q != -1){
+        url=url.substring(0,q)
+    }
 }
 
 var win = popup("http://104.236.53.73/summary/"+url);
