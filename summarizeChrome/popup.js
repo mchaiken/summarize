@@ -7,14 +7,14 @@ function popup(url) {
 var url = window.location.href;
 
 while (url.indexOf("/") != -1){
-    url=url.replace("/","_9l");
+    url=url.replace("/","_9l");
     q = url.indexOf("?")
-    if (q != -1){
-        url=url.substring(0,q)
-    }
+}
+if (q != -1){
+    url=url.substring(0,q)
 }
 
-var win = popup("http://127.0.0.1:5000/summary/"+url);
+var win = popup("http://104.236.53.73/summary/"+url);
 //win.location.href= url;
 console.log(win)
 //win.location.onLoad = win.location.reload();
