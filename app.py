@@ -87,8 +87,8 @@ def summarize(url):
     else:
         print url
         url=unicodedata.normalize('NFKD', url).encode('ascii','ignore')
-        url = url.replace("-9l","/")
-        url = url.replace("-9s"," ")
+        url = url.replace("_9l","/")
+        url = url.replace("_9s"," ")
         print url
         text = get_text(url)
         #print text[0][0]
@@ -187,6 +187,7 @@ def logout():
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "this is my secret key woah damn"
-    app.run(host = "104.236.53.73")
+    app.run()
+#app.run(host = "104.236.53.73")
 
 
