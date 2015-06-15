@@ -11,7 +11,7 @@ import requests
 import json
 from functools import wraps
 app = Flask(__name__)
-
+app.config["SECRET_KEY"] = open( "secret_key.txt" ).read()
 
 def auth(f):
     @wraps(f)
@@ -26,6 +26,7 @@ def auth(f):
 @app.route("/home",methods=["GET","POST"])
 @app.route("/", methods=["GET", "POST"])
 def index():
+    print "INDEX"
     if "user" in session:
         return render_template("home.html",has_saved = (len(get_user_urls(session["user"])) > 0))
     else:
@@ -117,6 +118,7 @@ def register():
             return redirect("/")
         else:
             flash("That email is already registered!", "danger")
+            pass
     return render_template("register.html",register=True)
 
 @app.route("/login", methods=["GET","POST"])
@@ -174,6 +176,7 @@ def settings():
             return redirect("/")
         else:
             flash("That email is already registered!", "danger")
+            pass
     return render_template("settings.html", settings=True)
 
 @app.route("/logout", methods=["GET", "POST"])
@@ -183,7 +186,7 @@ def logout():
 
 if __name__ == "__main__":
     app.debug = True
-    app.secret_key = "secret"
-    app.run()
+    app.secret_key = "this is my secret key woah damn"
+    app.run(host = "104.236.53.73")
 
 
