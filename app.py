@@ -65,7 +65,7 @@ def saved(url, id):
         title = article["title"]
         key_words=article["key_words"]
         print "Retrieved"
-    return render_template("saved.html",url=url,date=res[2].replace("/","%9l"), paragraphs=paragraphs,title=title, key_words=key_words)
+    return render_template("saved.html",url=url,date=res[2].replace("/","_9l"), paragraphs=paragraphs,title=title, key_words=key_words)
     
 
 @app.route("/summary/<url>",methods=["GET", "POST"])
